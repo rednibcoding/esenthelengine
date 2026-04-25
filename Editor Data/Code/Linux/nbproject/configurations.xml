@@ -56,6 +56,39 @@ EE_HEADER_PATH
           <commandlineTool>clang++</commandlineTool>
             <linkerLibItems>
                <linkerLibFileItem>EE_LIB_PATH</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/Recast/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/Png/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/Vorbis/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/Theora/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/SQLite/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/Webp/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/LZ4/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/Ogg/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/Tiff/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/Waifu2x/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/FreeType/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/Bullet/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/Snappy/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/LZMA/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/FBX/Linux/libfbxsdk.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/JpegTurbo/Linux/libturbojpeg.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/Flac/Linux/libFLAC-static.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/Opus/Linux/libopusfile.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/Opus/Linux/libopus.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/VP/Linux/libvpx.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/LZHAM/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/Zstd/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/FDK-AAC/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/mbedTLS/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/Xml2/Linux/libxml2.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysX_static_64.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCharacterKinematic_static_64.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCooking_static_64.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXExtensions_static_64.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXFoundation_static_64.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXPvdSDK_static_64.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXVehicle_static_64.a</linkerLibFileItem>
+               <linkerLibFileItem>../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCommon_static_64.a</linkerLibFileItem>
                EXTERNAL_LIBS
             <linkerLibLibItem>X11</linkerLibLibItem>
             <linkerLibLibItem>Xmu</linkerLibLibItem>
@@ -73,7 +106,7 @@ EE_HEADER_PATH
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
             <linkerLibStdlibItem>DynamicLinking</linkerLibStdlibItem>
             </linkerLibItems>
-            <commandLine>-static-libstdc++ -nopie</commandLine>
+            <commandLine>-static-libstdc++ -no-pie</commandLine>
          </linkerTool>
       </compileType>
       EE_APP_FILES
@@ -124,6 +157,39 @@ EE_HEADER_PATH
           <commandlineTool>clang++</commandlineTool>
            <linkerLibItems>
             <linkerLibFileItem>EE_LIB_PATH</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/Recast/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/Png/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/Vorbis/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/Theora/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/SQLite/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/Webp/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/LZ4/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/Ogg/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/Tiff/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/Waifu2x/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/FreeType/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/Bullet/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/Snappy/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/LZMA/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/FBX/Linux/libfbxsdk.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/JpegTurbo/Linux/libturbojpeg.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/Flac/Linux/libFLAC-static.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/Opus/Linux/libopusfile.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/Opus/Linux/libopus.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/VP/Linux/libvpx.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/LZHAM/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/Zstd/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/FDK-AAC/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/mbedTLS/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/Xml2/Linux/libxml2.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysX_static_64.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCharacterKinematic_static_64.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCooking_static_64.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXExtensions_static_64.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXFoundation_static_64.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXPvdSDK_static_64.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXVehicle_static_64.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCommon_static_64.a</linkerLibFileItem>
 EXTERNAL_LIBS
             <linkerLibLibItem>X11</linkerLibLibItem>
             <linkerLibLibItem>Xmu</linkerLibLibItem>
@@ -141,7 +207,7 @@ EXTERNAL_LIBS
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
             <linkerLibStdlibItem>DynamicLinking</linkerLibStdlibItem>
           </linkerLibItems>
-          <commandLine>-static-libstdc++ -nopie</commandLine>
+          <commandLine>-static-libstdc++ -no-pie</commandLine>
         </linkerTool>
       </compileType>
 EE_APP_FILES

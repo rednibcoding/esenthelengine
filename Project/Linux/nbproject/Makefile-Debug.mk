@@ -128,7 +128,7 @@ LDLIBSOPTIONS=-L../../ThirdPartyLibs/PhysX/PhysX/Bin/linux64 -L../../ThirdPartyL
 
 ../Project: ${OBJECTFILES}
 	${MKDIR} -p ..
-	clang++ -o ../Project ${OBJECTFILES} ${LDLIBSOPTIONS} -static-libstdc++ -nopie
+	clang++ -o ../Project ${OBJECTFILES} ${LDLIBSOPTIONS} -static-libstdc++ -no-pie
 
 ${OBJECTDIR}/_ext/98fc376a/Esenthel_Builder.o: ../Source/Esenthel\ Builder.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/98fc376a

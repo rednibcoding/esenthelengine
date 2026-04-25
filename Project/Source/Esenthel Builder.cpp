@@ -278,6 +278,7 @@ Threads     build_threads;
 Memx<Task> Tasks;
 CheckBox   All;
 Button     DoSel, OptionsButton;
+Bool       AutoBuildLinuxEditor=false;
 /******************************************************************************/
 void OptionsToggle(Ptr) {Options.visibleToggleActivate();}
 void ToggleAll(Ptr) {REPAO(Tasks).cb.set(All());}
@@ -285,6 +286,26 @@ void CopyOutput(Ptr) {Str s; FREPA(data){s+=data[i]; s+='\n';} ClipSet(s);}
 void Clear(Ptr) {list.setData(data.clear());}
 void DoSelected(Ptr) {FREPA(Tasks)if(Tasks[i].cb())Tasks[i].queue();}
 void BuildRun(Build &build, Ptr user, Int thread_index) {build.run();}
+void QueueTask(CChar8 *name)
+{
+   FREPA(Tasks)if(Tasks[i].task && Equal(Tasks[i].task->name, name))
+   {
+      Tasks[i].queue();
+      return;
+   }
+   Exit(S+"Can't find task: "+name);
+}
+void QueueLinuxEditorBuildTasks()
+{
+   if(!FExistSystem(EnginePath+LinuxEngineProject+"dist/Release/GNU-Linux/EsenthelEngine.a"))
+      QueueTask("Compile Linux");
+   QueueTask("Make Linux Libs");
+   QueueTask("Copy Headers");
+   QueueTask("Create \"Code Editor.dat\"");
+   QueueTask("Create \"Engine.pak\"");
+   QueueTask("Create \"Editor.pak\"");
+   QueueTask("Compile Editor");
+}
 /******************************************************************************/
 CChar8 *separator="/******************************************************************************/";
 CChar8 *copyright="/******************************************************************************\r\n"
@@ -521,21 +542,7 @@ void MakeLinuxLibs()
 {
    Str engine_lib=EditorPath+"Bin/EsenthelEngine.a";
    FDelFile(engine_lib);
-
-   // get a list of all possible libraries
-   Memc<Str> lib_paths;
-   lib_paths.add(EnginePath+LinuxEngineProject+"build/Release"); // Esenthel Engine
-   lib_paths.add(ThirdPartyLibsPath+"PVRTC/PVRTex/Linux_x86_64/Static/build/Release"); // PVRTC (because it's stored inside a separate folder)
-   lib_paths.add(ThirdPartyLibsPath+"VP/Linux"); // VP (because it's manually built)
-   if(Options.physics()==PHYS_ENGINE_PHYSX)lib_paths.add(ThirdPartyLibsPath+"PhysX/physx/bin/linux.clang/release/obj"); // PhysX (because it's stored inside a separate folder and should be linked only if PhysX is selected as physics engine)
-   // iterate all Third Party Libs
-   for(FileFind ff(ThirdPartyLibsPath); ff(); )if(ff.type==FSTD_DIR)lib_paths.add(ff.pathName()+"/Linux/build/Release");
-
-   // get all *.o files from those paths
-   Str obj_files; FREPA(lib_paths){TestDirForObjFiles(lib_paths[i], obj_files); FList(lib_paths[i], GatherObjFiles, obj_files);}
-
-   // make lib
-   Build().set(ARPath(), S+"-q \""+UnixPath(engine_lib)+"\" "+obj_files).run();
+   Copy(EnginePath+LinuxEngineProject+"dist/Release/GNU-Linux/EsenthelEngine.a", engine_lib);
    if(!FExistSystem(engine_lib))Gui.msgBox("Error", "Can't create Esenthel Linux Lib");
 }
 Str EngineAndroidLibName(C Str &abi) {return EditorPath+"Bin/Android/EsenthelEngine-"+abi+".a";}
@@ -993,6 +1000,11 @@ void Extract(C Str &path) {if(!ExtractTry(path))Exit(S+"Can't extract: "+path);}
 /******************************************************************************/
 void InitPre()
 {
+   FREPA(App.cmd_line)if(App.cmd_line[i]=="--build-linux-editor")
+   {
+      AutoBuildLinuxEditor=true;
+   }
+
    App.flag=APP_RESIZABLE|APP_MINIMIZABLE|APP_MAXIMIZABLE|APP_NO_PAUSE_ON_WINDOW_MOVE_SIZE|APP_WORK_IN_BACKGROUND|APP_FULL_TOGGLE;
    App.x=1;
    App.y=1;
@@ -1095,6 +1107,7 @@ Bool Init()
 
    Resize();
    build_threads.create(true, Cpu.threads(), 0, "BuildThreads");
+   if(AutoBuildLinuxEditor)QueueLinuxEditorBuildTasks();
    return true;
 }
 /******************************************************************************/
@@ -1125,6 +1138,7 @@ Bool Update()
       done=0;
       App.stateNormal().flash();
       App.stayAwake(AWAKE_OFF); // allow sleeping
+      if(AutoBuildLinuxEditor)return false;
    }
 
    if(data_new.elms())

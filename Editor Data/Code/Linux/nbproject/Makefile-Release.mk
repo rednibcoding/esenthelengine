@@ -51,7 +51,41 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=EE_LIB_PATH EXTERNAL_LIBS -Wl,-rpath,Bin -lpthread -ldl -lX11 -lXi -lXinerama -lXrandr -lrt -lXmu -lGL -lopenal -lz -lodbc -ludev -lXcursor -lXxf86vm
+LDLIBSOPTIONS=EE_LIB_PATH \
+ ../../../../ThirdPartyLibs/Recast/Linux/dist/Release/GNU-Linux/liblinux.a \
+ ../../../../ThirdPartyLibs/Png/Linux/dist/Release/GNU-Linux/liblinux.a \
+ ../../../../ThirdPartyLibs/Vorbis/Linux/dist/Release/GNU-Linux/liblinux.a \
+ ../../../../ThirdPartyLibs/Theora/Linux/dist/Release/GNU-Linux/liblinux.a \
+ ../../../../ThirdPartyLibs/SQLite/Linux/dist/Release/GNU-Linux/liblinux.a \
+ ../../../../ThirdPartyLibs/Webp/Linux/dist/Release/GNU-Linux/liblinux.a \
+ ../../../../ThirdPartyLibs/LZ4/Linux/dist/Release/GNU-Linux/liblinux.a \
+ ../../../../ThirdPartyLibs/Ogg/Linux/dist/Release/GNU-Linux/liblinux.a \
+ ../../../../ThirdPartyLibs/Tiff/Linux/dist/Release/GNU-Linux/liblinux.a \
+ ../../../../ThirdPartyLibs/Waifu2x/Linux/dist/Release/GNU-Linux/liblinux.a \
+ ../../../../ThirdPartyLibs/FreeType/Linux/dist/Release/GNU-Linux/liblinux.a \
+ ../../../../ThirdPartyLibs/Bullet/Linux/dist/Release/GNU-Linux/liblinux.a \
+ ../../../../ThirdPartyLibs/Snappy/Linux/dist/Release/GNU-Linux/liblinux.a \
+ ../../../../ThirdPartyLibs/LZMA/Linux/dist/Release/GNU-Linux/liblinux.a \
+ ../../../../ThirdPartyLibs/FBX/Linux/libfbxsdk.a \
+ ../../../../ThirdPartyLibs/JpegTurbo/Linux/libturbojpeg.a \
+ ../../../../ThirdPartyLibs/Flac/Linux/libFLAC-static.a \
+ ../../../../ThirdPartyLibs/Opus/Linux/libopusfile.a \
+ ../../../../ThirdPartyLibs/Opus/Linux/libopus.a \
+ ../../../../ThirdPartyLibs/VP/Linux/libvpx.a \
+ ../../../../ThirdPartyLibs/LZHAM/Linux/dist/Release/GNU-Linux/liblinux.a \
+ ../../../../ThirdPartyLibs/Zstd/Linux/dist/Release/GNU-Linux/liblinux.a \
+ ../../../../ThirdPartyLibs/FDK-AAC/Linux/dist/Release/GNU-Linux/liblinux.a \
+ ../../../../ThirdPartyLibs/mbedTLS/Linux/dist/Release/GNU-Linux/liblinux.a \
+ ../../../../ThirdPartyLibs/Xml2/Linux/libxml2.a \
+ ../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysX_static_64.a \
+ ../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCharacterKinematic_static_64.a \
+ ../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCooking_static_64.a \
+ ../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXExtensions_static_64.a \
+ ../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXFoundation_static_64.a \
+ ../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXPvdSDK_static_64.a \
+ ../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXVehicle_static_64.a \
+ ../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCommon_static_64.a \
+ EXTERNAL_LIBS -Wl,-rpath,Bin -lpthread -ldl -lX11 -lXi -lXinerama -lXrandr -lrt -lXmu -lGL -lopenal -lz -lodbc -ludev -lXcursor -lXxf86vm
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -60,7 +94,7 @@ LDLIBSOPTIONS=EE_LIB_PATH EXTERNAL_LIBS -Wl,-rpath,Bin -lpthread -ldl -lX11 -lXi
 EE_APP_NAME: EE_LIB_PATH EXTERNAL_LIBS
 
 EE_APP_NAME: ${OBJECTFILES}
-	clang++ -o EE_APP_NAME ${OBJECTFILES} ${LDLIBSOPTIONS} -static-libstdc++ -nopie -s
+	clang++ -o EE_APP_NAME ${OBJECTFILES} ${LDLIBSOPTIONS} -static-libstdc++ -no-pie -s
 
 EE_CPP_FILES
 

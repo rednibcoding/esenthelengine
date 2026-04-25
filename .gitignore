@@ -38,6 +38,15 @@ Objects-normal/
 # NetBeans
 **/nbproject/private/
 
+# Linux builds
+/Project/Project
+/Project/Linux/build/
+/Project/Linux/dist/
+/Editor Source/_Build_/Esenthel/.dep.inc
+/Editor Source/_Build_/Esenthel/Esenthel
+/Editor Source/_Build_/Esenthel/build/
+/Editor Source/_Build_/Esenthel/dist/
+
 # Windows
 Thumbs.db
 Desktop.ini

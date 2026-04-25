@@ -153,6 +153,55 @@ static Str BinPath(Bool allow_relative=true)
    if(CE.options.export_path_mode() && allow_relative)path=GetRelativePath(CE.build_path, path);
    return path;
 }
+static void AddLinuxEngineLibs(Memc<Str> &libs, C Str &build_path)
+{
+   static CChar8 *C engine_libs[]=
+   {
+      "ThirdPartyLibs/Recast/Linux/dist/Release/GNU-Linux/liblinux.a",
+      "ThirdPartyLibs/Png/Linux/dist/Release/GNU-Linux/liblinux.a",
+      "ThirdPartyLibs/Vorbis/Linux/dist/Release/GNU-Linux/liblinux.a",
+      "ThirdPartyLibs/Theora/Linux/dist/Release/GNU-Linux/liblinux.a",
+      "ThirdPartyLibs/SQLite/Linux/dist/Release/GNU-Linux/liblinux.a",
+      "ThirdPartyLibs/Webp/Linux/dist/Release/GNU-Linux/liblinux.a",
+      "ThirdPartyLibs/LZ4/Linux/dist/Release/GNU-Linux/liblinux.a",
+      "ThirdPartyLibs/Ogg/Linux/dist/Release/GNU-Linux/liblinux.a",
+      "ThirdPartyLibs/Tiff/Linux/dist/Release/GNU-Linux/liblinux.a",
+      "ThirdPartyLibs/Waifu2x/Linux/dist/Release/GNU-Linux/liblinux.a",
+      "ThirdPartyLibs/FreeType/Linux/dist/Release/GNU-Linux/liblinux.a",
+      "ThirdPartyLibs/Bullet/Linux/dist/Release/GNU-Linux/liblinux.a",
+      "ThirdPartyLibs/Snappy/Linux/dist/Release/GNU-Linux/liblinux.a",
+      "ThirdPartyLibs/LZMA/Linux/dist/Release/GNU-Linux/liblinux.a",
+      "ThirdPartyLibs/FBX/Linux/libfbxsdk.a",
+      "ThirdPartyLibs/JpegTurbo/Linux/libturbojpeg.a",
+      "ThirdPartyLibs/Flac/Linux/libFLAC-static.a",
+      "ThirdPartyLibs/Opus/Linux/libopusfile.a",
+      "ThirdPartyLibs/Opus/Linux/libopus.a",
+      "ThirdPartyLibs/VP/Linux/libvpx.a",
+      "ThirdPartyLibs/LZHAM/Linux/dist/Release/GNU-Linux/liblinux.a",
+      "ThirdPartyLibs/Zstd/Linux/dist/Release/GNU-Linux/liblinux.a",
+      "ThirdPartyLibs/FDK-AAC/Linux/dist/Release/GNU-Linux/liblinux.a",
+      "ThirdPartyLibs/mbedTLS/Linux/dist/Release/GNU-Linux/liblinux.a",
+      "ThirdPartyLibs/Xml2/Linux/libxml2.a",
+      "ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysX_static_64.a",
+      "ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCharacterKinematic_static_64.a",
+      "ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCooking_static_64.a",
+      "ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXExtensions_static_64.a",
+      "ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXFoundation_static_64.a",
+      "ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXPvdSDK_static_64.a",
+      "ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXVehicle_static_64.a",
+      "ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCommon_static_64.a",
+   };
+   Str root=GetPath(GetPath(App.exe()).tailSlash(false));
+   FREPA(engine_libs)
+   {
+      Str path=root+engine_libs[i];
+      if(FExistSystem(path))
+      {
+         if(CE.options.export_path_mode())path=GetRelativePath(build_path, path);
+         libs.add(path);
+      }
+   }
+}
 static Str AppName(C Str &str, EXE_TYPE exe_type)
 {
    Str out;
@@ -2653,7 +2702,11 @@ Bool CodeEditor::generateLinuxMakeProj()
        EE_OBJ_FILES,
        EE_CPP_FILES_Debug, EE_CPP_FILES_Release;
 
-   Memc<Str> libs=GetFiles(cei().appLibsLinux());
+   Memc<Str> libs; AddLinuxEngineLibs(libs, build_path);
+   {
+      Memc<Str> app_libs=GetFiles(cei().appLibsLinux());
+      FREPA(app_libs)libs.add(app_libs[i]);
+   }
    if(cei().appPublishSteamDll ())libs.add("Bin/libsteam_api.so" ); // this must be relative to the EXE because this path will be embedded in the executable ("Bin/" is needed because without it building will fail)
    if(cei().appPublishOpenVRDll())libs.add("Bin/libopenvr_api.so"); // this must be relative to the EXE because this path will be embedded in the executable ("Bin/" is needed because without it building will fail)
    FREPA(libs)EXTERNAL_LIBS.space()+=UnixEncode(libs[i]);
@@ -2818,7 +2871,11 @@ Bool CodeEditor::generateLinuxNBProj()
       }
       StoreTree(tree, EE_APP_ITEMS);
 
-      Memc<Str> libs=GetFiles(cei().appLibsLinux());
+      Memc<Str> libs; AddLinuxEngineLibs(libs, build_path);
+      {
+         Memc<Str> app_libs=GetFiles(cei().appLibsLinux());
+         FREPA(app_libs)libs.add(app_libs[i]);
+      }
       if(cei().appPublishSteamDll ())libs.add(bin_path+ "libsteam_api.so");
       if(cei().appPublishOpenVRDll())libs.add(bin_path+"libopenvr_api.so");
       FREPA(libs)EXTERNAL_LIBS+=S+"<linkerLibFileItem>"+XmlString(libs[i])+"</linkerLibFileItem>\n";

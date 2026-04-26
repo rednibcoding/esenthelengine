@@ -64,7 +64,6 @@ struct CodeEditorInterface
    Str   androidProjectPakPath();
    Str       iOSProjectPakPath();
    Str       UWPProjectPakPath();
-   Str  nintendoProjectPakPath();
    void saveChanges();
    void saveChanges(Memc<Edit::SaveChanges::Elm> &elms);
    void saveChanges(Memc<Edit::SaveChanges::Elm> &elms, void (*after_save_close)(Bool all_saved, Ptr user), Ptr user=null);

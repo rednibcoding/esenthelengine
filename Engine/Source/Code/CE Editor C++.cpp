@@ -364,7 +364,6 @@ Bool CodeEditor::verifyBuildPath()
       case EXE_APK  : build_exe=build_path+"Android/bin/"+build_project_name; break;
       case EXE_LINUX: build_exe=build_path+CleanNameForMakefile(build_project_name); break;
       case EXE_WEB  : build_exe=build_path+"Emscripten/"+(build_debug ? "Debug DX11/" : "Release DX11/")+build_project_name+".html"; break; // warning: this must match codes below if(build_exe_type==EXE_WEB)config+=" DX11";
-      case EXE_NS   : build_exe=build_path+"NX64/"      +(build_debug ? "Debug DX11/" : "Release DX11/")+build_project_name+".nsp" ; break; // warning: this must match codes below if(build_exe_type==EXE_NS )config+=" DX11";
       default       : build_exe.clear(); return false;
    }
    return true;
@@ -1241,13 +1240,11 @@ Bool CodeEditor::generateVSProj(Int version)
 {
    // !! For UWP don't store assets deeper than "Assets" (for example "Assets/UWP") because that would affect the final asset locations in the UWP executable !!
 
-   if(build_exe_type!=EXE_EXE && build_exe_type!=EXE_DLL /*&& build_exe_type!=EXE_LIB*/ && build_exe_type!=EXE_UWP && build_exe_type!=EXE_WEB && build_exe_type!=EXE_NS)return Error("Visual Studio projects support only EXE, DLL, Universal, Web and NintendoSwitch configurations.");
+   if(build_exe_type!=EXE_EXE && build_exe_type!=EXE_DLL /*&& build_exe_type!=EXE_LIB*/ && build_exe_type!=EXE_UWP && build_exe_type!=EXE_WEB)return Error("Visual Studio projects support only EXE, DLL, Universal and Web configurations.");
    if(build_exe_type==EXE_WEB && version<10)return Error("WEB configuration requires Visual Studio 2010 or newer.");
 
    Str bin_path    =BinPath(false),
        bin_path_rel=BinPath();
-
-   FCreateDirs(build_path+"Assets/Nintendo Switch");
 
    FileText resource_rc; resource_rc.writeMem(UTF_16); // utf-16 must be used, because VS has problems with utf-8
    FileText src; if(!src.read("Code/Windows/resource.rc"))return ErrorRead("Code/Windows/resource.rc"); for(; !src.end(); )resource_rc.putLine(src.fullLine());
@@ -1327,11 +1324,6 @@ Bool CodeEditor::generateVSProj(Int version)
          }
       }
 
-      if(build_exe_type==EXE_NS) // creating icons/images is slow, so do only when necessary
-      {
-         rel="Assets/Nintendo Switch/Icon.bmp"; if(CompareFile(FileInfoSystem(build_path+rel).modify_time_utc, icon_time))convert.New().set(build_path+rel, icon, icon_time).resize(1024, 1024).removeAlpha().BMP(); // NS accepts only 1024x1024 RGB (no alpha) BMP
-      }
-
       convert.reverseOrder(); // start working from the biggest ones because they take the most time, yes this is correct
       MultiThreadedCall(convert, ImageConvert::Func);
       FREPA(convert)if(!convert[i].ok)return ErrorWrite(convert[i].dest);
@@ -1372,9 +1364,7 @@ Bool CodeEditor::generateVSProj(Int version)
    Memc<Str> libs_win=GetFiles(cei().appLibsWindows()),
              dirs_win=GetFiles(cei().appDirsWindows()),
              libs_web,
-             dirs_web=dirs_win,
-             libs_ns =GetFiles(cei().appLibsNintendo()),
-             dirs_ns =dirs_win;
+             dirs_web=dirs_win;
 
    // Web html
    if(build_exe_type==EXE_WEB)
@@ -1390,62 +1380,6 @@ Bool CodeEditor::generateVSProj(Int version)
 
    // manifest
    if(!CopyFile("Code/Windows/Windows Manifest.xml", build_path+"Assets/Windows Manifest.xml"))return false;
-
-   // Nintendo Switch
-   if(!CopyFile("Code/Nintendo Switch/ImportNintendoSdk.props", build_path+"ImportNintendoSdk.props"))return false;
-   if(!CopyFile("Code/Nintendo Switch/Project.nnsdk.xml"      , build_path+"Project.nnsdk.xml"      ))return false;
-   {
-      XmlData xml;
-      if(!xml.load("Code/Nintendo Switch/Project.nmeta"))return ErrorRead("Code/Nintendo Switch/Project.nmeta");
-      if(XmlNode *NintendoSdkMeta=xml.findNode("NintendoSdkMeta"))
-      {
-         if(XmlNode *Core=NintendoSdkMeta->findNode("Core"))
-         {
-          //if(XmlNode *Name=Core->findNode("Name"))Name->data.setNum(1)[0]=cei().appName();
-            if(auto app_id=cei().appNintendoAppID())if(XmlNode *ApplicationId=Core->findNode("ApplicationId"))ApplicationId->data.setNum(1)[0]=TextHex(app_id, 16, 0, true);
-         }
-         if(XmlNode *Application=NintendoSdkMeta->findNode("Application"))
-         {
-            if(XmlNode *Title=Application->findNode("Title"))
-            {
-               if(XmlNode *Name     =Title->findNode("Name"     ))Name     ->data.setNum(1)[0]=cei().appName();
-               if(XmlNode *Publisher=Title->findNode("Publisher"))Publisher->data.setNum(1)[0]=cei().appNintendoPublisherName();
-            }
-            if(XmlNode *ReleaseVersion=Application->findNode("ReleaseVersion"))ReleaseVersion->data.setNum(1)[0]=cei().appBuild();
-            if(XmlNode *DisplayVersion=Application->findNode("DisplayVersion"))DisplayVersion->data.setNum(1)[0]=cei().appBuild();
-         }
-      }
-      if(!OverwriteOnChangeLoud(xml, build_path+"Assets/Nintendo Switch/Project.nmeta"))return false;
-   }
-   if(build_exe_type==EXE_NS)
-   {
-      Str data=build_path+"Assets/Nintendo Switch/Data/";
-
-      // remove all unwanted
-      CChar8 *allowed[]=
-      {
-         "Engine.pak",
-         "Project.pak",
-         "ShaderCache.pak",
-      };
-      DelExcept(data, allowed, Elms(allowed)); // remove all except 'allowed'
-
-      FCreateDirs(data);
-
-      // Engine.pak
-      Str src=bin_path+"Mobile/Engine.pak", dest=data+"Engine.pak";
-      if(cei().appEmbedEngineData()==1) // 2D only
-      {
-         if(!CreateEngineEmbedPak(src, dest, false))return false;
-      }else
-         if(!CopyFile(src, dest))return false;
-
-      // ShaderCache.pak
-      src=bin_path+"Nintendo/Switch ShaderCache.pak"; dest=data+"ShaderCache.pak";
-      if(!FExistSystem(src))FDel(dest);else
-      if(!VerifyPrecompiledShaderCache(src)){FDel(dest); Gui.msgBox(S, "Precompiled ShaderCache is outdated. Please regenerate it using \"Precompile Shaders\" tool, located inside \"Editor Source\\Tools\".");}else
-      if(!CopyFile(src, dest))return false;
-   }
 
    // universal manifest
    {
@@ -1637,8 +1571,7 @@ Bool CodeEditor::generateVSProj(Int version)
             Memc<Str> *libs=&libs_win;
             if(XmlParam *condition=item->findParam("Condition"))
             {
-               if(Contains(condition->value, "Emscripten", false, WHOLE_WORD_STRICT))libs=&libs_web;else
-               if(Contains(condition->value, "NX64"      , false, WHOLE_WORD_STRICT))libs=&libs_ns ;
+               if(Contains(condition->value, "Emscripten", false, WHOLE_WORD_STRICT))libs=&libs_web;
             }
             if(libs)FREPA(*libs){if(dest.is() && dest.last()!=';')dest+=';'; dest+=S+'"'+(*libs)[i]+'"';}
             Swap(dependencies->data.setNum(1)[0], dest);
@@ -1653,8 +1586,7 @@ Bool CodeEditor::generateVSProj(Int version)
             Memc<Str> *dirs=&dirs_win;
             if(XmlParam *condition=item->findParam("Condition"))
             {
-               if(Contains(condition->value, "Emscripten", false, WHOLE_WORD_STRICT))dirs=&dirs_web;else
-               if(Contains(condition->value, "NX64"      , false, WHOLE_WORD_STRICT))dirs=&dirs_ns;
+               if(Contains(condition->value, "Emscripten", false, WHOLE_WORD_STRICT))dirs=&dirs_web;
             }
             if(dirs)FREPA(*dirs){if(dest.is() && dest.last()!=';')dest+=';'; dest+=S+'"'+(*dirs)[i]+'"';}
             Swap(directories->data.setNum(1)[0], dest);
@@ -2922,6 +2854,7 @@ Bool CodeEditor::Export(EXPORT_MODE mode, BUILD_MODE build_mode)
       if(mode==EXPORT_EXE)mode=ExeToMode(build_exe_type);
       if(mode==EXPORT_ANDROID){Error("Android export support has been removed."); return false;}
       if(mode==EXPORT_XCODE && build_exe_type==EXE_IOS){Error("iOS export support has been removed. Use \"Mac APP\" for Xcode exports."); return false;}
+      if(build_exe_type==EXE_NS){Error("Nintendo Switch export support has been removed."); return false;}
       if(mode==EXPORT_VS)
       {
          // #VisualStudio
@@ -3001,7 +2934,8 @@ void CodeEditor::killBuild()
 void CodeEditor::build(BUILD_MODE mode)
 {
    if(config_exe==EXE_IOS){Error("iOS export support has been removed. Use \"Mac APP\" for Xcode exports."); return;}
-   if((mode==BUILD_PLAY || mode==BUILD_PUBLISH) && (config_exe==EXE_UWP || config_exe==EXE_NS)){openIDE(); return;} // Play/Publish for WindowsNew must be done from the IDE
+   if(config_exe==EXE_NS ){Error("Nintendo Switch export support has been removed."); return;}
+   if((mode==BUILD_PLAY || mode==BUILD_PUBLISH) && (config_exe==EXE_UWP)){openIDE(); return;} // Play/Publish for WindowsNew must be done from the IDE
 
    if(Export(EXPORT_EXE, mode))
    {
@@ -3012,7 +2946,7 @@ void CodeEditor::build(BUILD_MODE mode)
       build_phases =build_steps=0;
 
       Int build_threads=Cpu.threads();
-      if(build_exe_type==EXE_EXE || build_exe_type==EXE_DLL || build_exe_type==EXE_LIB || build_exe_type==EXE_UWP || build_exe_type==EXE_WEB || build_exe_type==EXE_NS)
+      if(build_exe_type==EXE_EXE || build_exe_type==EXE_DLL || build_exe_type==EXE_LIB || build_exe_type==EXE_UWP || build_exe_type==EXE_WEB)
       {
          build_phases=1+build_windows_code_sign;
          build_steps =3+build_windows_code_sign; FREPA(build_files)if(build_files[i].mode==BuildFile::SOURCE)build_steps++; // stdafx.cpp, linking, wait for end, *.cpp
@@ -3020,12 +2954,11 @@ void CodeEditor::build(BUILD_MODE mode)
          Str config=(build_debug ? "Debug" : "Release");
          if(build_exe_type==EXE_UWP)config+=" Universal";
 
-         if(build_exe_type==EXE_NS )config+=" DX11";else // always use the same config for NS  because it uses    GL, warning: this must match codes above: (build_debug ? "Debug DX11/" : "Release DX11/")
          if(build_exe_type==EXE_WEB)config+=" DX11";else // always use the same config for WEB because it uses WebGL, warning: this must match codes above: (build_debug ? "Debug DX11/" : "Release DX11/")
          if(build_exe_type==EXE_UWP)config+=" DX11";else
                                     config+=" DX11"; // config_api
 
-         Str platform=((build_exe_type==EXE_NS) ? "4) Nintendo Switch" : (build_exe_type==EXE_WEB) ? "3) Web" : /*config_32_bit ? "2) 32 bit" :*/ "1) 64 bit");
+         Str platform=((build_exe_type==EXE_WEB) ? "3) Web" : /*config_32_bit ? "2) 32 bit" :*/ "1) 64 bit");
 
          if(build_exe_type==EXE_WEB) // currently WEB compilation is available only through VC++ 2010
          {
@@ -3115,7 +3048,6 @@ void CodeEditor::debug()
    {
       case EXE_EXE:
       case EXE_UWP:
-      case EXE_NS :
          if(Export(EXPORT_VS, BUILD_DEBUG))VSRun(build_project_file, S); break;
 
       case EXE_DLL: build(); break;

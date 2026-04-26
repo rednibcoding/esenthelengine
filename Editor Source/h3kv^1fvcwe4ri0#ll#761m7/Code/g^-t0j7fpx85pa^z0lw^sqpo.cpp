@@ -344,7 +344,7 @@ class Project
       switch(material_simplify)
       {
          default       : return false; // MS_NEVER
-         case MS_MOBILE: return type==Edit.EXE_APK || type==Edit.EXE_IOS || type==Edit.EXE_NS;
+         case MS_MOBILE: return type==Edit.EXE_APK || type==Edit.EXE_IOS;
          case MS_ALWAYS: return true;
       }
    }

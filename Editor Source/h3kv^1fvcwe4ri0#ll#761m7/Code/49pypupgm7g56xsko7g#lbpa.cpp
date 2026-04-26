@@ -273,7 +273,7 @@ PublishResult       PublishRes;
 WindowIO            PublishEsProjIO;
 /******************************************************************************/
 bool PublishDataNeedOptimized() {return false /*PublishBuildMode==Edit.BUILD_PUBLISH*/;} // never optimize automatically, because for large games with many GB that would require potentially rewriting all data, if user wants to manually optimize, he would have to delete the publish project before publishing
-bool PublishDataNeeded(Edit.EXE_TYPE exe) {return exe==Edit.EXE_UWP || exe==Edit.EXE_APK || exe==Edit.EXE_IOS || exe==Edit.EXE_NS;}
+bool PublishDataNeeded(Edit.EXE_TYPE exe) {return exe==Edit.EXE_UWP || exe==Edit.EXE_APK || exe==Edit.EXE_IOS;}
 bool PublishDataReady() // if desired project data is already availalble
 {
    if(!PublishProjectDataPath.is())return true; // if we don't want to create project data pak (no file)
@@ -460,15 +460,6 @@ bool StartPublish(C Str &exe_name, Edit.EXE_TYPE exe_type, Edit.BUILD_MODE build
             FCreateDirs(GetPath(PublishProjectDataPath));
          }
       }else
-      if(exe_type==Edit.EXE_NS)
-      {
-         PublishDataAsPak=true; // always set to true because files inside iOS APP can't be modified by the app, so there's no point in storing them separately
-         //if(CodeEdit.appPublishProjData()) always setup 'PublishProjectDataPath' because even if we don't include Project data, we still include App data
-         {
-            PublishProjectDataPath=CodeEdit.nintendoProjectPakPath(); if(!PublishProjectDataPath.is()){Gui.msgBox(S, "Invalid path for project data file"); return false;}
-            FCreateDirs(GetPath(PublishProjectDataPath));
-         }
-      }else
       {
          Gui.msgBox(S, "Invalid application type."); return false;
       }
@@ -596,8 +587,7 @@ void AddPublishFiles(Memt<Elm*> &elms, MemPtr<PakFileData> files, Memc<ImageGene
             iOS=(PublishExeType==Edit.EXE_IOS),
             uwp=(PublishExeType==Edit.EXE_UWP),
             web=(PublishExeType==Edit.EXE_WEB),
-             ns=(PublishExeType==Edit.EXE_NS ),
-         mobile=(android || iOS || ns),
+         mobile=(android || iOS),
   mtrl_simplify=Proj.materialSimplify(PublishExeType);
 
    // elements
@@ -1115,7 +1105,7 @@ void SetPublishFiles(Memb<PakFileData> &files, Memc<ImageGenerate> &generate, Me
          }
          AddPublishFiles(elms, files, generate, convert);
       }else
-      if(PublishExeType==Edit.EXE_UWP || PublishExeType==Edit.EXE_APK || PublishExeType==Edit.EXE_IOS || PublishExeType==Edit.EXE_NS) // for Windows New, Android, iOS and Switch, if Project data is not included, then include only App data
+      if(PublishExeType==Edit.EXE_UWP || PublishExeType==Edit.EXE_APK || PublishExeType==Edit.EXE_IOS) // for Windows New, Android and iOS, if Project data is not included, then include only App data
       {
          Memt<Elm*> elms; Proj.getActiveAppElms(elms);
          AddPublishFiles(elms, files, generate, convert);

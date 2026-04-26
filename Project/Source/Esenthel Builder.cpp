@@ -696,13 +696,6 @@ void CompileLinux(C Str &project, C Str &config, void func()=null)
    build_threads.queue(build_requests.New().set("make", LinuxBuildParams(project, config)).set(func), BuildRun);
 }
 /******************************************************************************/
-Bool CheckNintendoSwitch()
-{
-   Str path=EsenthelPath+"NintendoSwitch";
-   if(FExistSystem(path))return true;
-   Gui.msgBox("Error", S+"Nintendo Switch pack not found:\n"+path); return false;
-}
-/******************************************************************************/
 void CopyEngineWindows64GL              () {Copy(EnginePath+"EsenthelEngine64GL.lib"  , EditorPath+"Bin/EsenthelEngine64DX11.lib");} // copy as DX11
 void CopyEngineWindows64DX9             () {Copy(EnginePath+"EsenthelEngine64DX9.lib" , EditorPath+"Bin/EsenthelEngine64DX9.lib");}
 void CopyEngineWindows32DX9             () {Copy(EnginePath+"EsenthelEngine32DX9.lib" , EditorPath+"Bin/EsenthelEngine32DX9.lib");}
@@ -712,8 +705,6 @@ void CopyEngineWindowsUniversal64DX11   () {Copy(EnginePath+"EsenthelEngineUnive
 void CopyEngineWindowsUniversal32DX11   () {Copy(EnginePath+"EsenthelEngineUniversal32DX11.lib"   , EditorPath+"Bin/EsenthelEngineUniversal32DX11.lib");}
 void CopyEngineWindowsUniversalArm32DX11() {Copy(EnginePath+"EsenthelEngineUniversalArm32DX11.lib", EditorPath+"Bin/EsenthelEngineUniversalArm32DX11.lib");}
 void CopyEngineWindowsUniversalArm64DX11() {Copy(EnginePath+"EsenthelEngineUniversalArm64DX11.lib", EditorPath+"Bin/EsenthelEngineUniversalArm64DX11.lib");}
-void CopyEngineNintendoSwitch           () {Copy(EnginePath+"EsenthelEngineNintendoSwitch.a"      , EditorPath+"Bin/EsenthelEngineNintendoSwitch.a");}
-
 void CopyEngineDebugWindows64DX9             () {Copy(EnginePath+"EsenthelEngineDebug64DX9.lib" , EditorPath+"Bin/EsenthelEngine64DX9.lib");}
 void CopyEngineDebugWindows32DX9             () {Copy(EnginePath+"EsenthelEngineDebug32DX9.lib" , EditorPath+"Bin/EsenthelEngine32DX9.lib");}
 void CopyEngineDebugWindows64DX11            () {Copy(EnginePath+"EsenthelEngineDebug64DX11.lib", EditorPath+"Bin/EsenthelEngine64DX11.lib");}
@@ -722,8 +713,6 @@ void CopyEngineDebugWindowsUniversal64DX11   () {Copy(EnginePath+"EsenthelEngine
 void CopyEngineDebugWindowsUniversal32DX11   () {Copy(EnginePath+"EsenthelEngineDebugUniversal32DX11.lib"   , EditorPath+"Bin/EsenthelEngineUniversal32DX11.lib");}
 void CopyEngineDebugWindowsUniversalArm32DX11() {Copy(EnginePath+"EsenthelEngineDebugUniversalArm32DX11.lib", EditorPath+"Bin/EsenthelEngineUniversalArm32DX11.lib");}
 void CopyEngineDebugWindowsUniversalArm64DX11() {Copy(EnginePath+"EsenthelEngineDebugUniversalArm64DX11.lib", EditorPath+"Bin/EsenthelEngineUniversalArm64DX11.lib");}
-void CopyEngineDebugNintendoSwitch           () {Copy(EnginePath+"EsenthelEngineDebugNintendoSwitch.a"      , EditorPath+"Bin/EsenthelEngineNintendoSwitch.a");}
-
 void CompileEngineWindows64GL              () {CompileVS(EnginePath+VSEngineProject, "Release GL"            , "1) 64 bit", CopyEngineWindows64GL);}
 void CompileEngineWindows64DX9             () {CompileVS(EnginePath+VSEngineProject, "Release DX9"           , "1) 64 bit", CopyEngineWindows64DX9);}
 void CompileEngineWindows32DX9             () {CompileVS(EnginePath+VSEngineProject, "Release DX9"           , "2) 32 bit", CopyEngineWindows32DX9);}
@@ -732,7 +721,6 @@ void CompileEngineWindows32DX11            () {CompileVS(EnginePath+VSEngineProj
 void CompileEngineWindowsUniversal64DX11   () {CompileVS(EnginePath+VSEngineProject, "Release Universal DX11", "1) 64 bit", CopyEngineWindowsUniversal64DX11);}
 void CompileEngineWindowsUniversal32DX11   () {CompileVS(EnginePath+VSEngineProject, "Release Universal DX11", "2) 32 bit", CopyEngineWindowsUniversal32DX11);}
 void CompileEngineWindowsUniversalArm32DX11() {CompileVS(EnginePath+VSEngineProject, "Release Universal DX11", "3) ARM"   , CopyEngineWindowsUniversalArm32DX11);}
-void CompileEngineNintendoSwitch           () {if(CheckNintendoSwitch())CompileVS(EnginePath+VSEngineProject, "Release DX11"          , "5) Nintendo Switch", CopyEngineNintendoSwitch);}
 void CompileEngineWeb                      () {CompileVS(EnginePath+VSEngineProject, "Release GL"            , "4) Web");}
 
 void CompileEngineDebugWindows64DX9             () {CompileVS(EnginePath+VSEngineProject, "Debug DX9"           , "1) 64 bit", CopyEngineDebugWindows64DX9);}
@@ -742,8 +730,6 @@ void CompileEngineDebugWindows32DX11            () {CompileVS(EnginePath+VSEngin
 void CompileEngineDebugWindowsUniversal64DX11   () {CompileVS(EnginePath+VSEngineProject, "Debug Universal DX11", "1) 64 bit", CopyEngineDebugWindowsUniversal64DX11);}
 void CompileEngineDebugWindowsUniversal32DX11   () {CompileVS(EnginePath+VSEngineProject, "Debug Universal DX11", "2) 32 bit", CopyEngineDebugWindowsUniversal32DX11);}
 void CompileEngineDebugWindowsUniversalArm32DX11() {CompileVS(EnginePath+VSEngineProject, "Debug Universal DX11", "3) ARM"   , CopyEngineDebugWindowsUniversalArm32DX11);}
-void CompileEngineDebugNintendoSwitch           () {if(CheckNintendoSwitch())CompileVS(EnginePath+VSEngineProject, "Debug DX11"          , "5) Nintendo Switch", CopyEngineNintendoSwitch);}
-
 void  DelEditorExe          () {FDelFile(EditorSourcePath+"Esenthel.exe");} // VS has a bug that it won't rebuild the EXE if no changes were made in source (so if EXE was built with DX9 lib, and then we're compiling for DX11, then it may not be relinked)
 void CopyEditorWindows64DX11() {    Copy(EditorSourcePath+"Esenthel.exe", EditorPath+"Esenthel.exe");}
 void CopyEditorWindows32DX9 () {    Copy(EditorSourcePath+"Esenthel.exe", EditorPath+"Esenthel 32 DX9.exe");}
@@ -855,7 +841,6 @@ TaskBase TaskBases[]=
    {"Make Linux Libs"           , "Make the Engine Linux Lib from the compilation result to the Editor Bin folder"     , LinuxLibs                  , true },
 #endif
 #if WINDOWS
-   {"Compile Nintendo Switch"   , "Compile the Engine in Release mode for Nintendo Switch"                             , CompileEngineNintendoSwitch, false},
    {"Clean Web"                 , "Clean temporary files generated during Engine compilation for the Web"              ,   CleanEngineWeb           , false},
    {"Compile Web"               , "Compile the Engine for Web"                                                         , CompileEngineWeb           , WEB_DEFAULT},
    {"Make Web Libs"             , "Make the Engine Web Lib from the compilation result to the Editor Bin folder"       , WebLibs                    , WEB_DEFAULT},

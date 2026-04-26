@@ -31,4 +31,3 @@ rmdir /s /q x64\Release\silk_common
 rmdir /s /q x64\Release\silk_float
 rmdir /s /q x64\Release\silk_fixed
 
-rmdir /s /q NX64

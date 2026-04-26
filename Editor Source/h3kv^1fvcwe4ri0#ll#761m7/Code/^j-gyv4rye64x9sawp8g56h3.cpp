@@ -650,7 +650,6 @@ class AppPropsEditor : PropWin
    static void GetChartboostApp     (  ptr           ) {Explore("https://dashboard.chartboost.com/tools/sdk");}
    static void GetMicrosoftPublisher(  ptr           ) {Explore("https://partner.microsoft.com/en-us/dashboard/account/v3/organization/legalinfo");}
    static void GetXboxLive          (  ptr           ) {Explore("https://partner.microsoft.com/en-us/dashboard/windows/overview");}
-   static void GetNintendo          (  ptr           ) {Explore("https://developer.nintendo.com");}
 
    static void DirsWin                     (  AppPropsEditor &ap, C Str &text) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData()){app_data.dirs_windows=text; app_data.dirs_windows_time.getUTC(); ap.changed_headers=true;}}
    static Str  DirsWin                     (C AppPropsEditor &ap             ) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData())return app_data.dirs_windows; return S;}
@@ -666,8 +665,6 @@ class AppPropsEditor : PropWin
    static Str  HeadersAndroid              (C AppPropsEditor &ap             ) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData())return app_data.headers_android; return S;}
    static void HeadersiOS                  (  AppPropsEditor &ap, C Str &text) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData()){app_data.headers_ios=text; app_data.headers_ios_time.getUTC(); ap.changed_headers=true;}}
    static Str  HeadersiOS                  (C AppPropsEditor &ap             ) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData())return app_data.headers_ios; return S;}
-   static void HeadersNintendo             (  AppPropsEditor &ap, C Str &text) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData()){app_data.headers_nintendo=text; app_data.headers_nintendo_time.getUTC(); ap.changed_headers=true;}}
-   static Str  HeadersNintendo             (C AppPropsEditor &ap             ) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData())return app_data.headers_nintendo; return S;}
    static void LibsWindows                 (  AppPropsEditor &ap, C Str &text) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData()){app_data.libs_windows=text; app_data.libs_windows_time.getUTC();}}
    static Str  LibsWindows                 (C AppPropsEditor &ap             ) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData())return app_data.libs_windows; return S;}
    static void LibsMac                     (  AppPropsEditor &ap, C Str &text) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData()){app_data.libs_mac=text; app_data.libs_mac_time.getUTC();}}
@@ -678,8 +675,6 @@ class AppPropsEditor : PropWin
    static Str  LibsAndroid                 (C AppPropsEditor &ap             ) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData())return app_data.libs_android; return S;}
    static void LibsiOS                     (  AppPropsEditor &ap, C Str &text) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData()){app_data.libs_ios=text; app_data.libs_ios_time.getUTC();}}
    static Str  LibsiOS                     (C AppPropsEditor &ap             ) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData())return app_data.libs_ios; return S;}
-   static void LibsNintendo                (  AppPropsEditor &ap, C Str &text) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData()){app_data.libs_nintendo=text; app_data.libs_nintendo_time.getUTC();}}
-   static Str  LibsNintendo                (C AppPropsEditor &ap             ) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData())return app_data.libs_nintendo; return S;}
    static void Package                     (  AppPropsEditor &ap, C Str &text) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData()){app_data.package=text; app_data.package_time.getUTC();}}
    static Str  Package                     (C AppPropsEditor &ap             ) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData())return app_data.package; return S;}
    static void MicrosoftPublisherID        (  AppPropsEditor &ap, C Str &text) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData()){app_data.ms_publisher_id.fromCanonical(SkipStart(text, "CN=")); app_data.ms_publisher_id_time.getUTC();}}
@@ -692,10 +687,6 @@ class AppPropsEditor : PropWin
    static Str  XboxLiveTitleID             (C AppPropsEditor &ap             ) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData())if(app_data.xbl_title_id)return app_data.xbl_title_id; return S;}
    static void XboxLiveSCID                (  AppPropsEditor &ap, C Str &text) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData()){app_data.xbl_scid.fromCanonical(text); app_data.xbl_scid_time.getUTC();}}
    static Str  XboxLiveSCID                (C AppPropsEditor &ap             ) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData())if(app_data.xbl_scid.valid())return CaseDown(app_data.xbl_scid.asCanonical()); return S;}
-   static void NintendoAppID               (  AppPropsEditor &ap, C Str &text) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData()){app_data.nintendo_app_id=TextULong(text); app_data.nintendo_app_id_time.getUTC();}}
-   static Str  NintendoAppID               (C AppPropsEditor &ap             ) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData())if(app_data.nintendo_app_id)return TextHex(app_data.nintendo_app_id, 16, 0, true); return S;}
-   static void NintendoPublisherName       (  AppPropsEditor &ap, C Str &text) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData()){app_data.nintendo_publisher_name=text; app_data.nintendo_publisher_name_time.getUTC();}}
-   static Str  NintendoPublisherName       (C AppPropsEditor &ap             ) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData())return app_data.nintendo_publisher_name; return S;}
    static void AndroidLicenseKey           (  AppPropsEditor &ap, C Str &text) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData()){app_data.android_license_key=text; app_data.android_license_key_time.getUTC();}}
    static Str  AndroidLicenseKey           (C AppPropsEditor &ap             ) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData())return app_data.android_license_key; return S;}
    static void Build                       (  AppPropsEditor &ap, C Str &text) {if(ap.elm)if(ElmApp *app_data=ap.elm.appData()){app_data.build=TextInt(text); app_data.build_time.getUTC(); if(ap.elm_id==Proj.curApp())CodeEdit.makeAuto();}}
@@ -744,7 +735,6 @@ class AppPropsEditor : PropWin
       PWIN,
       PMAC,
       PLIN,
-      PNIN,
       PAND,
       PIOS,
    }
@@ -753,7 +743,6 @@ class AppPropsEditor : PropWin
       "Windows",
       "Mac",
       "Linux",
-      "Nintendo",
    };
    static cchar8 *platforms2_t[]=
    {
@@ -772,18 +761,14 @@ class AppPropsEditor : PropWin
       PropEx &ihw      =add("Include Headers"            , MemberDesc(DATA_STR                               ).setFunc(HeadersWin                  , HeadersWin                  )).desc("Type full paths to header file names.\nSeparate each with | for example:\nC:\\Lib1\\Main.h | C:\\Lib2\\Main.h");
       PropEx &ihm      =add("Include Headers"            , MemberDesc(DATA_STR                               ).setFunc(HeadersMac                  , HeadersMac                  )).desc("Type full paths to header file names.\nSeparate each with | for example:\nC:\\Lib1\\Main.h | C:\\Lib2\\Main.h");
       PropEx &ihl      =add("Include Headers"            , MemberDesc(DATA_STR                               ).setFunc(HeadersLinux                , HeadersLinux                )).desc("Type full paths to header file names.\nSeparate each with | for example:\nC:\\Lib1\\Main.h | C:\\Lib2\\Main.h");
-      PropEx &ihn      =add("Include Headers"            , MemberDesc(DATA_STR                               ).setFunc(HeadersNintendo             , HeadersNintendo             )).desc("Type full paths to header file names.\nSeparate each with | for example:\nC:\\Lib1\\Main.h | C:\\Lib2\\Main.h");
       PropEx &ilw      =add("Include Libraries"          , MemberDesc(DATA_STR                               ).setFunc(LibsWindows                 , LibsWindows                 )).desc("Type full paths to lib file names.\nSeparate each with | for example:\nC:\\Lib1\\Main.lib | C:\\Lib2\\Main.lib");
       PropEx &ilm      =add("Include Libraries"          , MemberDesc(DATA_STR                               ).setFunc(LibsMac                     , LibsMac                     )).desc("Type full paths to lib file names.\nSeparate each with | for example:\n/Lib1/Main.a | /Lib2/Main.a");
       PropEx &ill      =add("Include Libraries"          , MemberDesc(DATA_STR                               ).setFunc(LibsLinux                   , LibsLinux                   )).desc("Type full paths to lib file names.\nSeparate each with | for example:\n/Lib1/Main.a | /Lib2/Main.a");
-      PropEx &iln      =add("Include Libraries"          , MemberDesc(DATA_STR                               ).setFunc(LibsNintendo                , LibsNintendo                )).desc("Type full paths to lib file names.\nSeparate each with | for example:\n/Lib1/Main.a | /Lib2/Main.a");
       PropEx &ms_pub_id=add("Microsoft Publisher ID"     , MemberDesc(DATA_STR                               ).setFunc(MicrosoftPublisherID        , MicrosoftPublisherID        ));
       PropEx &ms_pub_nm=add("Microsoft Publisher Name"   , MemberDesc(DATA_STR                               ).setFunc(MicrosoftPublisherName      , MicrosoftPublisherName      ));
       PropEx &xb_prog  =add("XboxLive Program"           , MemberDesc(DATA_INT                               ).setFunc(XboxLiveProgram             , XboxLiveProgram             )).setEnum(xbox_live_program_t, Elms(xbox_live_program_t));
       PropEx &xb_tit_id=add("XboxLive Title ID (decimal)", MemberDesc(DATA_STR                               ).setFunc(XboxLiveTitleID             , XboxLiveTitleID             ));
       PropEx &xb_scid  =add("XboxLive SCID"              , MemberDesc(DATA_STR                               ).setFunc(XboxLiveSCID                , XboxLiveSCID                ));
-      PropEx &nn_app_id=add("Nintendo App ID"            , MemberDesc(DATA_STR                               ).setFunc(NintendoAppID               , NintendoAppID               ));
-      PropEx &nn_pub_nm=add("Nintendo Publisher Name"    , MemberDesc(DATA_STR                               ).setFunc(NintendoPublisherName       , NintendoPublisherName       ));
       PropEx &idw      =add("Include Directories"        , MemberDesc(DATA_STR                               ).setFunc(DirsWin                     , DirsWin                     )).desc("Type full paths to additional include directories.\nThis is used when compiling from the Windows platform.\nSeparate each with | for example:\nC:\\Lib1 | C:\\Lib2");
       PropEx &idn      =add("Include Directories"        , MemberDesc(DATA_STR                               ).setFunc(DirsNonWin                  , DirsNonWin                  )).desc("Type full paths to additional include directories.\nThis is used when compiling from platform other than Windows.\nSeparate each with | for example:\n/Lib2 | /Lib2");
       PropEx &first    =add("Package Name"               , MemberDesc(DATA_STR                               ).setFunc(Package                     , Package                     )).desc("Application package name.\nMust be in following format: \"com.company_name.app_name\"\nWhere 'company_name' is the name of developer/company,\nand 'app_name' is the name of the application.\n\nThe package name should be unique.\nThe name parts may contain uppercase or lowercase letters 'A' through 'Z', numbers, hyphens '-' and underscores '_'.\n\nOnce you publish your application, you cannot change the package name.\nThe package name defines your application's identity,\nso if you change it, then it is considered to be a different application\nand users of the previous version cannot update to the new version.");
@@ -809,18 +794,14 @@ class AppPropsEditor : PropWin
       ihw.pos(pos).parent(platforms.tab(PWIN));
       ihm.pos(pos).parent(platforms.tab(PMAC));
       ihl.pos(pos).parent(platforms.tab(PLIN));
-      ihn.pos(pos).parent(platforms.tab(PNIN));
       pos.y-=h;
       ilw.pos(pos).parent(platforms.tab(PWIN));
       ilm.pos(pos).parent(platforms.tab(PMAC));
       ill.pos(pos).parent(platforms.tab(PLIN));
-      iln.pos(pos).parent(platforms.tab(PNIN));
       pos.y-=h;
       ms_pub_id.pos(pos).parent(platforms.tab(PWIN)); platforms.tab(PWIN)+=ms_pub_id.button.create(Rect_RU(ms_pub_id.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetMicrosoftPublisher); ms_pub_id.textline.rect(Rect(ms_pub_id.textline.rect().ld(), ms_pub_id.button.rect().lu()));
-      nn_app_id.pos(pos).parent(platforms.tab(PNIN)); platforms.tab(PNIN)+=nn_app_id.button.create(Rect_RU(nn_app_id.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetNintendo); nn_app_id.textline.rect(Rect(nn_app_id.textline.rect().ld(), nn_app_id.button.rect().lu()));
       pos.y-=h;
       ms_pub_nm.pos(pos).parent(platforms.tab(PWIN)); platforms.tab(PWIN)+=ms_pub_nm.button.create(Rect_RU(ms_pub_nm.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetMicrosoftPublisher); ms_pub_nm.textline.rect(Rect(ms_pub_nm.textline.rect().ld(), ms_pub_nm.button.rect().lu()));
-      nn_pub_nm.pos(pos).parent(platforms.tab(PNIN)); platforms.tab(PNIN)+=nn_pub_nm.button.create(Rect_RU(nn_pub_nm.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetNintendo); nn_pub_nm.textline.rect(Rect(nn_pub_nm.textline.rect().ld(), nn_pub_nm.button.rect().lu()));
       pos.y-=h;
       xb_prog.pos(pos).parent(platforms.tab(PWIN)); platforms.tab(PWIN)+=xb_prog.button.create(Rect_RU(xb_prog.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetXboxLive); xb_prog.textline.rect(Rect(xb_prog.textline.rect().ld(), xb_prog.button.rect().lu()));
       pos.y-=h;

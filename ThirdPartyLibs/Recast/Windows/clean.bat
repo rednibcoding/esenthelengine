@@ -23,7 +23,6 @@ del "ARM\Release Universal\*.obj"
 del "ARM\Release Universal\*.log"
 rmdir /s /q "ARM\Release Universal\recast.tlog"
 
-rmdir /s /q NX64
 
 del Emscripten\Release\*.o
 del Emscripten\Release\*.tlog

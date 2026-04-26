@@ -34,4 +34,3 @@ del Emscripten\Release\*.tlog
 del Emscripten\Release\*.lastbuildstate
 del Emscripten\Release\*.cache
 
-rmdir /s /q NX64

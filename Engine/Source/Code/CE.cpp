@@ -1747,7 +1747,7 @@ void CodeEditor::rebuildSymbols(Bool rebuild_3rd_party_headers)
    // setup custom macros
    Macro *macro; Int index;
    CChar8 *name="STEAM"  ; if(ProjectMacros.binarySearch(name, index, CompareCS))macro=&ProjectMacros[index];else macro=&ProjectMacros.NewAt(index).set(name); macro->def=cei().appPublishSteamDll (); macro->parts.setNum(1)[0].set(TOKEN_NUMBER, -1, &BStr().setBorrowed(macro->def));
-           name="OPEN_VR"; if(ProjectMacros.binarySearch(name, index, CompareCS))macro=&ProjectMacros[index];else macro=&ProjectMacros.NewAt(index).set(name); macro->def=cei().appPublishOpenVRDll(); macro->parts.setNum(1)[0].set(TOKEN_NUMBER, -1, &BStr().setBorrowed(macro->def));
+           name="OPEN_VR"; if(ProjectMacros.binarySearch(name, index, CompareCS))macro=&ProjectMacros[index];else macro=&ProjectMacros.NewAt(index).set(name); macro->def=false;                         macro->parts.setNum(1)[0].set(TOKEN_NUMBER, -1, &BStr().setBorrowed(macro->def));
 
    REPAO(sources).detectDefines  ();
    REPAO(sources).preprocess     ();

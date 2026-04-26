@@ -128,11 +128,6 @@ bool StartPublish(C Str &exe_name, Edit::EXE_TYPE exe_type, Edit::BUILD_MODE bui
             cchar8 *name=(CodeEdit.config32Bit() ? "steam_api.dll" : "steam_api64.dll");
             if(!FCopy(S+"Code/Windows/"+name, PublishPath+name)){Gui.msgBox(S, S+"Can't copy \""+name+'"'); return false;}
          }
-         if(CodeEdit.appPublishOpenVRDll())
-         {
-            cchar8 *name=(CodeEdit.config32Bit() ? "openvr_api.32.dll" : "openvr_api.64.dll");
-            if(!FCopy(S+"Code/Windows/"+name, PublishPath+"openvr_api.dll")){Gui.msgBox(S, S+"Can't copy \""+name+'"'); return false;}
-         }
          if(PublishExePath.is())if(!FCopy(PublishExePath, PublishPath+GetBase(PublishExePath))){Gui.msgBox(S, S+"Can't copy \""+GetBase(PublishExePath)+'"'); return false;}
       }else
       if(exe_type==Edit::EXE_WEB)
@@ -183,7 +178,7 @@ bool StartPublish(C Str &exe_name, Edit::EXE_TYPE exe_type, Edit::BUILD_MODE bui
          PublishPath=ProjectsPath+ProjectsPublishPath+GetBase(CodeEdit.appPath(CodeEdit.appName())).tailSlash(true); if(!FDelInside(PublishPath)){Gui.msgBox(S, S+"Can't delete \""+PublishPath+'"'); return false;}
          PublishDataAsPak=CodeEdit.appPublishDataAsPak();
          if(!FCreateDirs(PublishPath)){Gui.msgBox(S, S+"Can't create \""+PublishPath+'"'); return false;}
-         if(!CodeEdit.appEmbedEngineData() || CodeEdit.appPublishProjData() || physx_dll || CodeEdit.appPublishSteamDll() || CodeEdit.appPublishOpenVRDll()) // if want to store something in "Bin" folder
+         if(!CodeEdit.appEmbedEngineData() || CodeEdit.appPublishProjData() || physx_dll || CodeEdit.appPublishSteamDll()) // if want to store something in "Bin" folder
          {
             PublishBinPath=PublishPath+"Bin\\"; if(!FCreateDirs(PublishBinPath)){Gui.msgBox(S, S+"Can't create \""+PublishBinPath+'"'); return false;}
             if(CodeEdit.appPublishProjData() && PublishDataAsPak)PublishProjectDataPath=PublishBinPath+"Project.pak";
@@ -201,8 +196,7 @@ bool StartPublish(C Str &exe_name, Edit::EXE_TYPE exe_type, Edit::BUILD_MODE bui
                };
                FREPA(physx_files)files.add(physx_files[i]);
             }
-            if(CodeEdit.appPublishSteamDll ())files.add("libsteam_api.so");
-            if(CodeEdit.appPublishOpenVRDll())files.add("libopenvr_api.so");
+            if(CodeEdit.appPublishSteamDll())files.add("libsteam_api.so");
             FREPA(files)if(!FCopy(BinPath().tailSlash(true)+files[i], PublishBinPath+files[i])){Gui.msgBox(S, S+"Can't copy \""+files[i]+'"'); return false;}
          }
          if(PublishExePath.is())if((FileInfoSystem(PublishExePath).type==FSTD_FILE) ? !FCopy(PublishExePath, PublishPath+GetBase(PublishExePath)) : !FCopyDir(PublishExePath, PublishPath+GetBase(PublishExePath))){Gui.msgBox(S, S+"Can't copy \""+GetBase(PublishExePath)+'"'); return false;}

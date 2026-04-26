@@ -7,125 +7,52 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3782F7BC1C86878900413552 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3782F7B31C86878900413552 /* Default-568h@2x.png */; };
-		3782F7BD1C86878900413552 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3782F7B41C86878900413552 /* Default-667h@2x.png */; };
-		3782F7BE1C86878900413552 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 3782F7B51C86878900413552 /* Default-Portrait.png */; };
-		3782F7BF1C86878900413552 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3782F7B61C86878900413552 /* Default@2x.png */; };
-		3782F7C01C86878900413552 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3782F7B71C86878900413552 /* Icon-60@2x.png */; };
-		3782F7C11C86878900413552 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3782F7B81C86878900413552 /* Icon-60@3x.png */; };
-		3782F7C21C86878900413552 /* Icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 3782F7B91C86878900413552 /* Icon-76.png */; };
-		3782F7C31C86878900413552 /* Icon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3782F7BA1C86878900413552 /* Icon-76@2x.png */; };
-		3782F7C61C86888E00413552 /* Esenthel Builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 378309D91A0711C8002383BF /* Esenthel Builder.cpp */; };
-		378309DA1A0711C8002383BF /* Esenthel Builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 378309D91A0711C8002383BF /* Esenthel Builder.cpp */; };
-		3799264518BD4AB300A933D5 /* iOS.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3799260818BD4AB300A933D5 /* iOS.xib */; };
-		37AD1FB91F52D16900C80985 /* EsenthelEngine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AE6A3F18E67FD300319BDA /* EsenthelEngine.a */; };
-		37AE6A4318E67FDF00319BDA /* EsenthelEngine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AE6A4218E67FDF00319BDA /* EsenthelEngine.a */; };
-		37C573321C868FFA00039CB1 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 37C573311C868FFA00039CB1 /* Icon.icns */; };
+		0B10000116CD7000006A0106 /* Esenthel Builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B10001116CD7000006A0106 /* Esenthel Builder.cpp */; };
+		0B10000216CD7000006A0106 /* EsenthelEngine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B10001216CD7000006A0106 /* EsenthelEngine.a */; };
+		0B10000316CD7000006A0106 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0B10001316CD7000006A0106 /* Icon.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0BDA9C7F121EE06400ED5E97 /* iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3782F7B31C86878900413552 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Assets/Default-568h@2x.png"; sourceTree = "<group>"; };
-		3782F7B41C86878900413552 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-667h@2x.png"; path = "Assets/Default-667h@2x.png"; sourceTree = "<group>"; };
-		3782F7B51C86878900413552 /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait.png"; path = "Assets/Default-Portrait.png"; sourceTree = "<group>"; };
-		3782F7B61C86878900413552 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Assets/Default@2x.png"; sourceTree = "<group>"; };
-		3782F7B71C86878900413552 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@2x.png"; path = "Assets/Icon-60@2x.png"; sourceTree = "<group>"; };
-		3782F7B81C86878900413552 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@3x.png"; path = "Assets/Icon-60@3x.png"; sourceTree = "<group>"; };
-		3782F7B91C86878900413552 /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-76.png"; path = "Assets/Icon-76.png"; sourceTree = "<group>"; };
-		3782F7BA1C86878900413552 /* Icon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-76@2x.png"; path = "Assets/Icon-76@2x.png"; sourceTree = "<group>"; };
-		378309D91A0711C8002383BF /* Esenthel Builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "Esenthel Builder.cpp"; path = "Source/Esenthel Builder.cpp"; sourceTree = "<group>"; };
-		3799260718BD4AB300A933D5 /* iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = iOS.plist; path = Assets/iOS.plist; sourceTree = "<group>"; };
-		3799260818BD4AB300A933D5 /* iOS.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = iOS.xib; path = Assets/iOS.xib; sourceTree = "<group>"; };
-		3799260A18BD4AB300A933D5 /* Mac.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Mac.plist; path = Assets/Mac.plist; sourceTree = "<group>"; };
-		37AE6A3F18E67FD300319BDA /* EsenthelEngine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = EsenthelEngine.a; path = ../Engine/Build/Release/EsenthelEngine.a; sourceTree = "<group>"; };
-		37AE6A4218E67FDF00319BDA /* EsenthelEngine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = EsenthelEngine.a; path = "../Engine/Build/Release-iphoneos/EsenthelEngine.a"; sourceTree = "<group>"; };
-		37AE6A4418E67FEA00319BDA /* EsenthelEngine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = EsenthelEngine.a; path = "../Engine/Build/Release-iphonesimulator/EsenthelEngine.a"; sourceTree = "<group>"; };
-		37C573311C868FFA00039CB1 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = Assets/Icon.icns; sourceTree = "<group>"; };
-		37DB7C081922F09D00275AEE /* EsenthelEngine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = EsenthelEngine.a; path = ../Engine/build/Debug/EsenthelEngine.a; sourceTree = "<group>"; };
-		37DB7C091922F17500275AEE /* EsenthelEngine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = EsenthelEngine.a; path = "../Engine/build/Debug-iphoneos/EsenthelEngine.a"; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B10001016CD7000006A0106 /* Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B10001116CD7000006A0106 /* Esenthel Builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "Esenthel Builder.cpp"; path = "Source/Esenthel Builder.cpp"; sourceTree = "<group>"; };
+		0B10001216CD7000006A0106 /* EsenthelEngine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = EsenthelEngine.a; path = ../Engine/Build/Release/EsenthelEngine.a; sourceTree = "<group>"; };
+		0B10001316CD7000006A0106 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = Assets/Icon.icns; sourceTree = "<group>"; };
+		0B10001416CD7000006A0106 /* Mac.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Mac.plist; path = Assets/Mac.plist; sourceTree = "<group>"; };
+		0B10001516CD7000006A0106 /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdafx.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		0BDA9C7D121EE06400ED5E97 /* Frameworks */ = {
+		0B10002016CD7000006A0106 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37AE6A4318E67FDF00319BDA /* EsenthelEngine.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8D11072E0486CEB800E47090 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				37AD1FB91F52D16900C80985 /* EsenthelEngine.a in Frameworks */,
+				0B10000216CD7000006A0106 /* EsenthelEngine.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		080E96DDFE201D6D7F000001 /* Source */ = {
+		0B10003016CD7000006A0106 /* H */ = {
 			isa = PBXGroup;
 			children = (
-				378309D91A0711C8002383BF /* Esenthel Builder.cpp */,
-			);
-			name = Source;
-			sourceTree = "<group>";
-		};
-		0B18A16512DA50F200499CA9 /* Mac Debug */ = {
-			isa = PBXGroup;
-			children = (
-				37DB7C081922F09D00275AEE /* EsenthelEngine.a */,
-			);
-			name = "Mac Debug";
-			sourceTree = "<group>";
-		};
-		0B3494EC1564168C00C7205E /* Mac Release */ = {
-			isa = PBXGroup;
-			children = (
-				37AE6A3F18E67FD300319BDA /* EsenthelEngine.a */,
-			);
-			name = "Mac Release";
-			sourceTree = "<group>";
-		};
-		0B977FA6120C76B200DB67BC /* H */ = {
-			isa = PBXGroup;
-			children = (
+				0B10001516CD7000006A0106 /* stdafx.h */,
 			);
 			name = H;
 			sourceTree = "<group>";
 		};
-		0BF460B415A52B2D007F127E /* iOS Simulator */ = {
+		0B10003116CD7000006A0106 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				37AE6A4418E67FEA00319BDA /* EsenthelEngine.a */,
+				0B10001116CD7000006A0106 /* Esenthel Builder.cpp */,
 			);
-			name = "iOS Simulator";
-			sourceTree = "<group>";
-		};
-		0BF8568F156AAE0E0016EC4B /* iOS Release */ = {
-			isa = PBXGroup;
-			children = (
-				37AE6A4218E67FDF00319BDA /* EsenthelEngine.a */,
-			);
-			name = "iOS Release";
-			sourceTree = "<group>";
-		};
-		0BF85690156AAE260016EC4B /* iOS Debug */ = {
-			isa = PBXGroup;
-			children = (
-				37DB7C091922F17500275AEE /* EsenthelEngine.a */,
-			);
-			name = "iOS Debug";
+			name = Source;
 			sourceTree = "<group>";
 		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D1107320486CEB800E47090 /* Project.app */,
-				0BDA9C7F121EE06400ED5E97 /* iOS.app */,
+				0B10001016CD7000006A0106 /* Project.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -133,9 +60,9 @@
 		29B97314FDCFA39411CA2CEA /* Project */ = {
 			isa = PBXGroup;
 			children = (
-				0B977FA6120C76B200DB67BC /* H */,
-				080E96DDFE201D6D7F000001 /* Source */,
-				29B97323FDCFA39411CA2CEA /* Libs */,
+				0B10003016CD7000006A0106 /* H */,
+				0B10003116CD7000006A0106 /* Source */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				29B97317FDCFA39411CA2CEA /* Assets */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -145,61 +72,30 @@
 		29B97317FDCFA39411CA2CEA /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				3782F7B31C86878900413552 /* Default-568h@2x.png */,
-				3782F7B41C86878900413552 /* Default-667h@2x.png */,
-				3782F7B51C86878900413552 /* Default-Portrait.png */,
-				3782F7B61C86878900413552 /* Default@2x.png */,
-				3782F7B71C86878900413552 /* Icon-60@2x.png */,
-				3782F7B81C86878900413552 /* Icon-60@3x.png */,
-				3782F7B91C86878900413552 /* Icon-76.png */,
-				3782F7BA1C86878900413552 /* Icon-76@2x.png */,
-				37C573311C868FFA00039CB1 /* Icon.icns */,
-				3799260718BD4AB300A933D5 /* iOS.plist */,
-				3799260818BD4AB300A933D5 /* iOS.xib */,
-				3799260A18BD4AB300A933D5 /* Mac.plist */,
+				0B10001316CD7000006A0106 /* Icon.icns */,
+				0B10001416CD7000006A0106 /* Mac.plist */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
 		};
-		29B97323FDCFA39411CA2CEA /* Libs */ = {
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0BF460B415A52B2D007F127E /* iOS Simulator */,
-				0BF85690156AAE260016EC4B /* iOS Debug */,
-				0BF8568F156AAE0E0016EC4B /* iOS Release */,
-				0B18A16512DA50F200499CA9 /* Mac Debug */,
-				0B3494EC1564168C00C7205E /* Mac Release */,
+				0B10001216CD7000006A0106 /* EsenthelEngine.a */,
 			);
-			name = Libs;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0BDA9C7E121EE06400ED5E97 /* iOS */ = {
+		0B10004016CD7000006A0106 /* Mac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0BDA9C84121EE06400ED5E97 /* Build configuration list for PBXNativeTarget "iOS" */;
+			buildConfigurationList = 0B10005016CD7000006A0106 /* Build configuration list for PBXNativeTarget "Mac" */;
 			buildPhases = (
-				0BDA9C7B121EE06400ED5E97 /* Resources */,
-				0BDA9C7C121EE06400ED5E97 /* Sources */,
-				0BDA9C7D121EE06400ED5E97 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = iOS;
-			productName = iPhone;
-			productReference = 0BDA9C7F121EE06400ED5E97 /* iOS.app */;
-			productType = "com.apple.product-type.application";
-		};
-		8D1107260486CEB800E47090 /* Mac */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Mac" */;
-			buildPhases = (
-				8D1107290486CEB800E47090 /* Resources */,
-				8D11072C0486CEB800E47090 /* Sources */,
-				8D11072E0486CEB800E47090 /* Frameworks */,
+				0B10002116CD7000006A0106 /* Sources */,
+				0B10002016CD7000006A0106 /* Frameworks */,
+				0B10002216CD7000006A0106 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -207,7 +103,7 @@
 			);
 			name = Mac;
 			productName = Project;
-			productReference = 8D1107320486CEB800E47090 /* Project.app */;
+			productReference = 0B10001016CD7000006A0106 /* Project.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -218,16 +114,7 @@
 			attributes = {
 				LastUpgradeCheck = 1000;
 				TargetAttributes = {
-					0BDA9C7E121EE06400ED5E97 = {
-						DevelopmentTeam = 2KA8LL48VG;
-						ProvisioningStyle = Automatic;
-						SystemCapabilities = {
-							com.apple.InAppPurchase = {
-								enabled = 1;
-							};
-						};
-					};
-					8D1107260486CEB800E47090 = {
+					0B10004016CD7000006A0106 = {
 						DevelopmentTeam = 2KA8LL48VG;
 						ProvisioningStyle = Automatic;
 					};
@@ -247,182 +134,35 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D1107260486CEB800E47090 /* Mac */,
-				0BDA9C7E121EE06400ED5E97 /* iOS */,
+				0B10004016CD7000006A0106 /* Mac */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		0BDA9C7B121EE06400ED5E97 /* Resources */ = {
+		0B10002216CD7000006A0106 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3799264518BD4AB300A933D5 /* iOS.xib in Resources */,
-				3782F7C31C86878900413552 /* Icon-76@2x.png in Resources */,
-				3782F7C21C86878900413552 /* Icon-76.png in Resources */,
-				3782F7BD1C86878900413552 /* Default-667h@2x.png in Resources */,
-				3782F7BF1C86878900413552 /* Default@2x.png in Resources */,
-				3782F7BE1C86878900413552 /* Default-Portrait.png in Resources */,
-				3782F7C11C86878900413552 /* Icon-60@3x.png in Resources */,
-				3782F7BC1C86878900413552 /* Default-568h@2x.png in Resources */,
-				3782F7C01C86878900413552 /* Icon-60@2x.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8D1107290486CEB800E47090 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				37C573321C868FFA00039CB1 /* Icon.icns in Resources */,
+				0B10000316CD7000006A0106 /* Icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0BDA9C7C121EE06400ED5E97 /* Sources */ = {
+		0B10002116CD7000006A0106 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3782F7C61C86888E00413552 /* Esenthel Builder.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8D11072C0486CEB800E47090 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				378309DA1A0711C8002383BF /* Esenthel Builder.cpp in Sources */,
+				0B10000116CD7000006A0106 /* Esenthel Builder.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		0BDA9C82121EE06400ED5E97 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2KA8LL48VG;
-				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = Assets/iOS.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"../Engine/Build/Release-iphoneos",
-				);
-				OTHER_LDFLAGS = (
-					"-framework",
-					QuartzCore,
-					"-framework",
-					UIKit,
-					"-framework",
-					Foundation,
-					"-framework",
-					EventKit,
-					"-framework",
-					EventKitUI,
-					"-framework",
-					CoreMedia,
-					"-framework",
-					CoreMotion,
-					"-framework",
-					CoreLocation,
-					"-framework",
-					CoreGraphics,
-					"-framework",
-					CoreTelephony,
-					"-framework",
-					AudioToolbox,
-					"-framework",
-					AVFoundation,
-					"-framework",
-					SystemConfiguration,
-					"-framework",
-					MessageUI,
-					"-framework",
-					AdSupport,
-					"-framework",
-					OpenGLES,
-					"-framework",
-					OpenAL,
-					"-lz",
-				);
-				PRODUCT_NAME = iOS;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = iphoneos;
-				STRIP_INSTALLED_PRODUCT = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		0BDA9C83121EE06400ED5E97 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2KA8LL48VG;
-				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = Assets/iOS.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"../Engine/Build/Release-iphoneos",
-				);
-				OTHER_LDFLAGS = (
-					"-framework",
-					QuartzCore,
-					"-framework",
-					UIKit,
-					"-framework",
-					Foundation,
-					"-framework",
-					EventKit,
-					"-framework",
-					EventKitUI,
-					"-framework",
-					CoreMedia,
-					"-framework",
-					CoreMotion,
-					"-framework",
-					CoreLocation,
-					"-framework",
-					CoreGraphics,
-					"-framework",
-					CoreTelephony,
-					"-framework",
-					AudioToolbox,
-					"-framework",
-					AVFoundation,
-					"-framework",
-					SystemConfiguration,
-					"-framework",
-					MessageUI,
-					"-framework",
-					AdSupport,
-					"-framework",
-					OpenGLES,
-					"-framework",
-					OpenAL,
-					"-lz",
-				);
-				PRODUCT_NAME = iOS;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = iphoneos;
-				STRIP_INSTALLED_PRODUCT = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		C01FCF4B08A954540054247B /* Debug */ = {
+		0B10005116CD7000006A0106 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -438,7 +178,7 @@
 			};
 			name = Debug;
 		};
-		C01FCF4C08A954540054247B /* Release */ = {
+		0B10005216CD7000006A0106 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -496,19 +236,11 @@
 				HEADER_SEARCH_PATHS = (
 					../ThirdPartyLibs,
 					../ThirdPartyLibs/Bullet/lib/src,
-					"../ThirdPartyLibs/Facebook/facebook-ios-sdk/src",
 					../ThirdPartyLibs/FBX,
 					../ThirdPartyLibs/Vorbis/include,
 					../ThirdPartyLibs/Ogg/include,
 					../ThirdPartyLibs/Theora/include,
 					../ThirdPartyLibs/Cg/Mac,
-					../ThirdPartyLibs/PhysX/PhysX/Include,
-					../ThirdPartyLibs/PhysX/PhysX/Include/common,
-					../ThirdPartyLibs/PhysX/PhysX/Include/geometry,
-					../ThirdPartyLibs/PhysX/PhysX/Source/Common/src,
-					../ThirdPartyLibs/PhysX/PhysX/Source/GeomUtils/src,
-					../ThirdPartyLibs/PhysX/PxShared/include,
-					../ThirdPartyLibs/PhysX/PxShared/src/foundation/include,
 					.,
 				);
 				ONLY_ACTIVE_ARCH = YES;
@@ -528,11 +260,11 @@
 					OpenGL,
 					"-framework",
 					OpenAL,
+					"-framework",
+					IOKit,
 					"-lz",
 					"-liodbc",
 					"-liconv",
-					"-framework",
-					IOKit,
 					"-stdlib=libc++",
 				);
 				SEPARATE_STRIP = YES;
@@ -595,19 +327,11 @@
 				HEADER_SEARCH_PATHS = (
 					../ThirdPartyLibs,
 					../ThirdPartyLibs/Bullet/lib/src,
-					"../ThirdPartyLibs/Facebook/facebook-ios-sdk/src",
 					../ThirdPartyLibs/FBX,
 					../ThirdPartyLibs/Vorbis/include,
 					../ThirdPartyLibs/Ogg/include,
 					../ThirdPartyLibs/Theora/include,
 					../ThirdPartyLibs/Cg/Mac,
-					../ThirdPartyLibs/PhysX/PhysX/Include,
-					../ThirdPartyLibs/PhysX/PhysX/Include/common,
-					../ThirdPartyLibs/PhysX/PhysX/Include/geometry,
-					../ThirdPartyLibs/PhysX/PhysX/Source/Common/src,
-					../ThirdPartyLibs/PhysX/PhysX/Source/GeomUtils/src,
-					../ThirdPartyLibs/PhysX/PxShared/include,
-					../ThirdPartyLibs/PhysX/PxShared/src/foundation/include,
 					.,
 				);
 				OTHER_CFLAGS = (
@@ -626,14 +350,15 @@
 					OpenGL,
 					"-framework",
 					OpenAL,
+					"-framework",
+					IOKit,
 					"-lz",
 					"-liodbc",
 					"-liconv",
-					"-framework",
-					IOKit,
 					"-stdlib=libc++",
 				);
 				SEPARATE_STRIP = YES;
+				STRIP_INSTALLED_PRODUCT = YES;
 				WARNING_CFLAGS = (
 					"-Wno-address-of-temporary",
 					"-Wno-comment",
@@ -653,20 +378,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0BDA9C84121EE06400ED5E97 /* Build configuration list for PBXNativeTarget "iOS" */ = {
+		0B10005016CD7000006A0106 /* Build configuration list for PBXNativeTarget "Mac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0BDA9C82121EE06400ED5E97 /* Debug */,
-				0BDA9C83121EE06400ED5E97 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Mac" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C01FCF4B08A954540054247B /* Debug */,
-				C01FCF4C08A954540054247B /* Release */,
+				0B10005116CD7000006A0106 /* Debug */,
+				0B10005216CD7000006A0106 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

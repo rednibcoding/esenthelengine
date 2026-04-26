@@ -1,3 +1,0 @@
-﻿*.framework from original Facebook SDK were converted as:
-*.framework\* -> *.a (file without extension into *.a library)
-*.framework\Headers -> * (Headers folder moved into root without .framework extension)

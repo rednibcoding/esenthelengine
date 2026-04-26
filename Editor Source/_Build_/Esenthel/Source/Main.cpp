@@ -126,7 +126,8 @@ void InitPre()
    
    ASSERT(ELM_NUM==(int)Edit::ELM_NUM); // they must match exactly
    Str path=GetPath(App.exe()).tailSlash(true);
-   InstallerMode=(STEAM ? false : !(FExistSystem(path+"Bin/Code Editor.dat") && FExistSystem(path+"Bin/Engine.pak") && FExistSystem(path+"Bin/Editor.pak") && FExistSystem(path+"Bin/Mobile/Engine.pak") && FExistSystem(path+"Bin/EsenthelEngine/EsenthelEngine.h") && FExistSystem(path+"Bin/Android/Ant")));
+   DataPath(path+"../Data");
+   InstallerMode=(STEAM ? false : !(FExistSystem(path+"Bin/Code Editor.dat") && FExistSystem(path+"Bin/Engine.pak") && FExistSystem(path+"Bin/Editor.pak") && FExistSystem(path+"Bin/Mobile/Engine.pak") && FExistSystem(path+"Bin/EsenthelEngine/EsenthelEngine.h")));
    App.x=App.y=0;
    App.receive_data=ReceiveData;
    D.screen_changed=ScreenChanged;
@@ -167,15 +168,15 @@ void InitPre()
       App.drop=Drop;
       App.quit=Quit;
       App.resumed=Resumed;
+#if !DEBUG
+      Paks.add("Bin/Engine.pak");
+      Paks.add("Bin/Editor.pak");
+#endif
       D.secondaryOpenGLContexts(Cpu.threads()*3); // worker threads + importer threads + manually called threads
       D.drawNullMaterials(true);
       D.dofFocusMode(true);
       D.set_shader=SetShader;
       D.mode(App.desktopW()*0.8f, App.desktopH()*0.8f);
-   #if !DEBUG
-      Paks.add("Bin/Engine.pak");
-      Paks.add("Bin/Editor.pak");
-   #endif
       Sky.atmospheric();
       InitElmOrder();
       LoadSettings();

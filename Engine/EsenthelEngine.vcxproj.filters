@@ -2322,18 +2322,6 @@
     <Library Include="..\ThirdPartyLibs\SteamWorks\lib\win32\steam_api.lib">
       <Filter>H\_\Libs\32</Filter>
     </Library>
-    <Library Include="..\ThirdPartyLibs\Oculus\LibOVR\Lib\Windows\Win32\Release\VS2015\LibOVR.lib">
-      <Filter>H\_\Libs\32</Filter>
-    </Library>
-    <Library Include="..\ThirdPartyLibs\Oculus\LibOVRKernel\Lib\Windows\Win32\Release\VS2015\LibOVRKernel.lib">
-      <Filter>H\_\Libs\32</Filter>
-    </Library>
-    <Library Include="..\ThirdPartyLibs\Oculus\LibOVR\Lib\Windows\x64\Release\VS2015\LibOVR.lib">
-      <Filter>H\_\Libs\64</Filter>
-    </Library>
-    <Library Include="..\ThirdPartyLibs\Oculus\LibOVRKernel\Lib\Windows\x64\Release\VS2015\LibOVRKernel.lib">
-      <Filter>H\_\Libs\64</Filter>
-    </Library>
     <Library Include="..\ThirdPartyLibs\SQLite\Windows\Release Universal\SQLite\SQLite.lib">
       <Filter>H\_\Libs\32\Universal</Filter>
     </Library>
@@ -2414,12 +2402,6 @@
     </Library>
     <Library Include="..\ThirdPartyLibs\VP\WindowsARM\ARM\Release\vpxmd.lib">
       <Filter>H\_\Libs\ARM</Filter>
-    </Library>
-    <Library Include="..\ThirdPartyLibs\OpenVR\lib\win32\openvr_api.lib">
-      <Filter>H\_\Libs\32</Filter>
-    </Library>
-    <Library Include="..\ThirdPartyLibs\OpenVR\lib\win64\openvr_api.lib">
-      <Filter>H\_\Libs\64</Filter>
     </Library>
     <Library Include="..\ThirdPartyLibs\Zstd\Windows\bin\ARM\Release\zstdlib\zstdlib.lib">
       <Filter>H\_\Libs\ARM</Filter>

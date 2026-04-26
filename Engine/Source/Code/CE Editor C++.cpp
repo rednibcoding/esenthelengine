@@ -182,14 +182,6 @@ static void AddLinuxEngineLibs(Memc<Str> &libs, C Str &build_path)
       "ThirdPartyLibs/FDK-AAC/Linux/dist/Release/GNU-Linux/liblinux.a",
       "ThirdPartyLibs/mbedTLS/Linux/dist/Release/GNU-Linux/liblinux.a",
       "ThirdPartyLibs/Xml2/Linux/libxml2.a",
-      "ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysX_static_64.a",
-      "ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCharacterKinematic_static_64.a",
-      "ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCooking_static_64.a",
-      "ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXExtensions_static_64.a",
-      "ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXFoundation_static_64.a",
-      "ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXPvdSDK_static_64.a",
-      "ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXVehicle_static_64.a",
-      "ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCommon_static_64.a",
    };
    Str root=GetPath(GetPath(App.exe()).tailSlash(false));
    FREPA(engine_libs)
@@ -492,8 +484,8 @@ void CodeEditor::generateHeadersH(Memc<Symbol*> &sorted_classes, EXPORT_MODE exp
 
    // custom macros
    f+="// DEFINES";
-   f+=S+"#define STEAM   "+cei().appPublishSteamDll ();
-   f+=S+"#define OPEN_VR "+cei().appPublishOpenVRDll();
+   f+=S+"#define STEAM   "+cei().appPublishSteamDll();
+   f+=S+ "#define OPEN_VR 0";
    f+=SEP_LINE;
 
    // write class forward declarations
@@ -1268,13 +1260,6 @@ Bool CodeEditor::generateVSProj(Int version)
       if(!CopyFile(S+"Code/Windows/"+name, build_path+name))return false;
    }
 
-   // OpenVR DLL
-   if(cei().appPublishOpenVRDll()) // this must be copied always because the DLL needs to be present in the EXE folder, since we can't specify a custom path for it
-   {
-      CChar8 *name=(config_32_bit ? "openvr_api.32.dll" : "openvr_api.64.dll");
-      if(!CopyFile(S+"Code/Windows/"+name, build_path+"openvr_api.dll"))return false;
-   }
-
    // d3dcompiler_47.dll (Windows 7 and earlier don't have it included, this is needed if app uses shader compilation, or if compiled in debug mode which does not remove unreferenced symbols/functions)
    {
       CChar8 *name=(config_32_bit ? "d3dcompiler_47.32.dll" : "d3dcompiler_47.64.dll");
@@ -1804,6 +1789,7 @@ struct iOSSplash
 };
 Bool CodeEditor::generateXcodeProj()
 {
+   const Bool include_ios=(build_exe_type==EXE_IOS);
    Str bin_path=BinPath();
    XmlData xml;
    Str str, add; Int pos;
@@ -1817,7 +1803,8 @@ Bool CodeEditor::generateXcodeProj()
 
    FCreateDirs(build_path+"Assets");
 
-   if(!CopyFile("Code/Apple/iOS.xib", build_path+"Assets/iOS.xib"))return false;
+   if(include_ios)
+      if(!CopyFile("Code/Apple/iOS.xib", build_path+"Assets/iOS.xib"))return false;
 
    Memc<Str> libs_mac=GetFiles(cei().appLibsMac()),
              libs_ios=GetFiles(cei().appLibsiOS()),
@@ -1835,8 +1822,7 @@ Bool CodeEditor::generateXcodeProj()
    if(  exists)mac_assets.New().name="Assets/App.pak";
 
    // Steam
-   if(cei().appPublishSteamDll ())mac_dylibs.New().name=bin_path+ "libsteam_api.dylib";
-   if(cei().appPublishOpenVRDll())mac_dylibs.New().name=bin_path+"libopenvr_api.dylib";
+   if(cei().appPublishSteamDll())mac_dylibs.New().name=bin_path+"libsteam_api.dylib";
 
    // Images
    Image      icon; DateTime icon_time;
@@ -1847,7 +1833,7 @@ Bool CodeEditor::generateXcodeProj()
       Image landscape; DateTime landscape_time;
       Memc<ImageConvert> convert;
       CChar8 *rel="Assets/Icon.icns"; if(CompareFile(FileInfoSystem(build_path+rel).modify_time_utc, icon_time))convert.New().set(build_path+rel, icon, icon_time).ICNS().clamp(256, 256);
-      if(build_exe_type==EXE_IOS) // creating iOS icons/images is slow, so do this only when necessary
+      if(include_ios) // creating iOS icons/images is slow, so do this only when necessary
       {
          GetImages(portrait, portrait_time, landscape, landscape_time);
 
@@ -1926,80 +1912,84 @@ Bool CodeEditor::generateXcodeProj()
 
    Str app_package=Replace(cei().appPackage(), '_', '-'); // Apple does not support '_' but supports '-'
 
-   // iOS.plist
-   if(!xml.load("Code/Apple/iOS.plist"))return ErrorRead("Code/Apple/iOS.plist");
-   if(XmlNode *plist=xml   .findNode("plist"))
-   if(XmlNode *dict =plist->findNode("dict" ))FREPA(dict->nodes)if(dict->nodes[i].name=="key" && InRange(i+1, dict->nodes))
+   if(include_ios)
    {
-      XmlNode &node =dict->nodes[i  ];
-      XmlNode &value=dict->nodes[i+1];
-      Str key; FREPA(node.data)key.space()+=node.data[i];
-      if(key=="CFBundleDisplayName")
+      // iOS.plist
+      if(!xml.load("Code/Apple/iOS.plist"))return ErrorRead("Code/Apple/iOS.plist");
+      if(XmlNode *plist=xml   .findNode("plist"))
+      if(XmlNode *dict =plist->findNode("dict" ))FREPA(dict->nodes)if(dict->nodes[i].name=="key" && InRange(i+1, dict->nodes))
       {
-         value.setName("string").nodes.del();
-         value.data.setNum(1)[0]=cei().appName();
-      }else
-      if(key=="CFBundleVersion" || key=="CFBundleShortVersionString")
-      {
-         value.setName("string").nodes.del();
-         value.data.setNum(1)[0]=cei().appBuild();
-      }else
-      if(key=="UISupportedInterfaceOrientations")
-      {
-         value.setName("array").nodes.del();
-         UInt flag=cei().appSupportedOrientations();
-         if(flag&DIRF_UP   )value.nodes.New().setName("string").data.add("UIInterfaceOrientationPortrait");
-         if(flag&DIRF_DOWN )value.nodes.New().setName("string").data.add("UIInterfaceOrientationPortraitUpsideDown");
-         if(flag&DIRF_LEFT )value.nodes.New().setName("string").data.add("UIInterfaceOrientationLandscapeRight");
-         if(flag&DIRF_RIGHT)value.nodes.New().setName("string").data.add("UIInterfaceOrientationLandscapeLeft");
-      }else
-      if(key=="NSLocationAlwaysUsageDescription" || key=="NSLocationWhenInUseUsageDescription")
-      {
-         value.setName("string").nodes.del();
-         value.data.setNum(1)[0]=cei().appLocationUsageReason();
-      }else
-      if(key=="NSCalendarsUsageDescription")
-      {
-         value.setName("string").nodes.del();
-         value.data.setNum(1)[0]="Unknown";
-      }else
-      if(key=="FacebookAppID")
-      {
-         value.setName("string").nodes.del();
-         value.data.setNum(1)[0]=cei().appFacebookAppID();
-      }else
-      if(key=="FacebookDisplayName")
-      {
-         value.setName("string").nodes.del();
-         value.data.setNum(1)[0]=cei().appName();
-      }else
-      if(key=="GADApplicationIdentifier")
-      {
-         value.setName("string").nodes.del();
-         value.data.setNum(1)[0]=cei().appAdMobAppIDiOS();
-      }else
-      if(key=="ChartboostAppID")
-      {
-         value.setName("string").nodes.del();
-         value.data.setNum(1)[0]=cei().appChartboostAppIDiOS();
-      }else
-      if(key=="ChartboostAppSignature")
-      {
-         value.setName("string").nodes.del();
-         value.data.setNum(1)[0]=cei().appChartboostAppSignatureiOS();
-      }else
-      if(key=="CFBundleURLTypes")
-      {
-         if(value.name=="array")
+         XmlNode &node =dict->nodes[i  ];
+         XmlNode &value=dict->nodes[i+1];
+         Str key; FREPA(node.data)key.space()+=node.data[i];
+         if(key=="CFBundleDisplayName")
          {
-            XmlNode &dict=value.getNode("dict");
-            dict.nodes.setNum(2, 0); // reset previous elements
-            dict.nodes[0].setName("key"  ).data.add("CFBundleURLSchemes");
-            dict.nodes[1].setName("array").nodes.New().setName("string").data.add(S+"fb"+cei().appFacebookAppID());
+            value.setName("string").nodes.del();
+            value.data.setNum(1)[0]=cei().appName();
+         }else
+         if(key=="CFBundleVersion" || key=="CFBundleShortVersionString")
+         {
+            value.setName("string").nodes.del();
+            value.data.setNum(1)[0]=cei().appBuild();
+         }else
+         if(key=="UISupportedInterfaceOrientations")
+         {
+            value.setName("array").nodes.del();
+            UInt flag=cei().appSupportedOrientations();
+            if(flag&DIRF_UP   )value.nodes.New().setName("string").data.add("UIInterfaceOrientationPortrait");
+            if(flag&DIRF_DOWN )value.nodes.New().setName("string").data.add("UIInterfaceOrientationPortraitUpsideDown");
+            if(flag&DIRF_LEFT )value.nodes.New().setName("string").data.add("UIInterfaceOrientationLandscapeRight");
+            if(flag&DIRF_RIGHT)value.nodes.New().setName("string").data.add("UIInterfaceOrientationLandscapeLeft");
+         }else
+         if(key=="NSLocationAlwaysUsageDescription" || key=="NSLocationWhenInUseUsageDescription")
+         {
+            value.setName("string").nodes.del();
+            value.data.setNum(1)[0]=cei().appLocationUsageReason();
+         }else
+         if(key=="NSCalendarsUsageDescription")
+         {
+            value.setName("string").nodes.del();
+            value.data.setNum(1)[0]="Unknown";
+         }else
+         if(key=="FacebookAppID")
+         {
+            value.setName("string").nodes.del();
+            value.data.setNum(1)[0]=cei().appFacebookAppID();
+         }else
+         if(key=="FacebookDisplayName")
+         {
+            value.setName("string").nodes.del();
+            value.data.setNum(1)[0]=cei().appName();
+         }else
+         if(key=="GADApplicationIdentifier")
+         {
+            value.setName("string").nodes.del();
+            value.data.setNum(1)[0]=cei().appAdMobAppIDiOS();
+         }else
+         if(key=="ChartboostAppID")
+         {
+            value.setName("string").nodes.del();
+            value.data.setNum(1)[0]=cei().appChartboostAppIDiOS();
+         }else
+         if(key=="ChartboostAppSignature")
+         {
+            value.setName("string").nodes.del();
+            value.data.setNum(1)[0]=cei().appChartboostAppSignatureiOS();
+         }else
+         if(key=="CFBundleURLTypes")
+         {
+            if(value.name=="array")
+            {
+               XmlNode &dict=value.getNode("dict");
+               dict.nodes.setNum(2, 0); // reset previous elements
+               dict.nodes[0].setName("key"  ).data.add("CFBundleURLSchemes");
+               dict.nodes[1].setName("array");
+               if(ULong id=cei().appFacebookAppID())dict.nodes[1].nodes.New().setName("string").data.add(S+"fb"+id);
+            }
          }
       }
+      if(!OverwriteOnChangeLoud(xml, build_path+"Assets/iOS.plist"))return false;
    }
-   if(!OverwriteOnChangeLoud(xml, build_path+"Assets/iOS.plist"))return false;
 
    // Mac.plist
    if(!xml.load("Code/Apple/Mac.plist"))return ErrorRead("Code/Apple/Mac.plist");
@@ -2022,15 +2012,18 @@ Bool CodeEditor::generateXcodeProj()
    if(!OverwriteOnChangeLoud(xml, build_path+"Assets/Mac.plist"))return false;
 
    str=Replace(str, "path = \"EsenthelEngine Mac.a\""          , UnixPath(S+"path = \""+bin_path+"EsenthelEngine Mac.a\""          ));
-   str=Replace(str, "path = \"EsenthelEngine iOS.a\""          , UnixPath(S+"path = \""+bin_path+"EsenthelEngine iOS.a\""          ));
-   str=Replace(str, "path = \"EsenthelEngine iOS Simulator.a\"", UnixPath(S+"path = \""+bin_path+"EsenthelEngine iOS Simulator.a\""));
    str=Replace(str, "path = \"Engine.pak\""                    , UnixPath(S+"path = \""+bin_path+"Mobile/Engine.pak\""             ));
    str=Replace(str, "/* ESENTHEL FRAMEWORK DIRS */"            , S+'"'+CString(S+'"'+UnixPath(bin_path)+'"')+"\",");
    str=Replace(str, "/* ESENTHEL LIBRARY DIRS */"              , S+'"'+CString(S+'"'+UnixPath(bin_path)+'"')+"\",");
    str=Replace(str, "PRODUCT_BUNDLE_IDENTIFIER = \"\";"        , S+"PRODUCT_BUNDLE_IDENTIFIER = \""+CString(app_package       )+"\";");
    str=Replace(str, "PRODUCT_NAME = \"\";"                     , S+"PRODUCT_NAME = \""             +CString(build_project_name)+"\";");
    str=Replace(str, "path = Mac.app;"                          , S+"path = \""                     +CString(build_project_name)+".app\";");
-   str=Replace(str, "path = iOS.app;"                          , S+"path = \""                     +CString(build_project_name)+".app\";");
+   if(include_ios)
+   {
+      str=Replace(str, "path = \"EsenthelEngine iOS.a\""          , UnixPath(S+"path = \""+bin_path+"EsenthelEngine iOS.a\""          ));
+      str=Replace(str, "path = \"EsenthelEngine iOS Simulator.a\"", UnixPath(S+"path = \""+bin_path+"EsenthelEngine iOS Simulator.a\""));
+      str=Replace(str, "path = iOS.app;"                          , S+"path = \""                     +CString(build_project_name)+".app\";");
+   }
    if(apple_team_id.is())
    {
       str=Replace(str, "DevelopmentTeam = \"\";", S+"DevelopmentTeam = \""+CString(apple_team_id)+"\";", true, WHOLE_WORD_STRICT);
@@ -2046,10 +2039,13 @@ Bool CodeEditor::generateXcodeProj()
       FREPA(libs_mac){Str path=GetPath(libs_mac[i]); if(path.is())lib_dirs.line()+=S+'"'+CString(S+'"'+path+'"')+"\",";}
       str=Replace(str, "/* ESENTHEL MAC LIBRARY DIRS */", lib_dirs);
 
-      lib_dirs.clear();
+      if(include_ios)
+      {
+         lib_dirs.clear();
 
-      FREPA(libs_ios){Str path=GetPath(libs_ios[i]); if(path.is())lib_dirs.line()+=S+'"'+CString(S+'"'+path+'"')+"\",";}
-      str=Replace(str, "/* ESENTHEL IOS LIBRARY DIRS */", lib_dirs);
+         FREPA(libs_ios){Str path=GetPath(libs_ios[i]); if(path.is())lib_dirs.line()+=S+'"'+CString(S+'"'+path+'"')+"\",";}
+         str=Replace(str, "/* ESENTHEL IOS LIBRARY DIRS */", lib_dirs);
+      }
    }
 
 
@@ -2063,7 +2059,7 @@ Bool CodeEditor::generateXcodeProj()
       {
          bf.xcode_file_id=file_id++;
          bf.xcode_mac_id =file_id++;
-         bf.xcode_ios_id =file_id++;
+         if(include_ios)bf.xcode_ios_id=file_id++;
          add+=S+"\t\t"+XcodeID(bf.xcode_file_id)+" /* "+Replace(bf.dest_proj_path, '*', '\0')+" */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = \""+CString(GetBase(bf.dest_proj_path))+"\"; path = \""+CString(UnixPath(bf.dest_proj_path))+"\"; sourceTree = \"<group>\"; };\n";
          BuildTree(tree, bf, bf.dest_proj_path);
       }
@@ -2083,7 +2079,7 @@ Bool CodeEditor::generateXcodeProj()
       file.build=file_id++;
       add+=S+"\t\t"+XcodeID(file.file)+" /* "+file.name+" */ = {isa = PBXFileReference; lastKnownFileType = file; name = \""+CString(GetBase(file.name))+"\"; path = \""+CString(UnixPath(file.name))+"\"; sourceTree = \"<group>\"; };\n";
    }
-   REPA(ios_images)
+   if(include_ios)REPA(ios_images)
    {
       XcodeFile &file=ios_images[i];
       file.file =file_id++;
@@ -2098,7 +2094,7 @@ Bool CodeEditor::generateXcodeProj()
       file.build=file_id++;
       add+=S+"\t\t"+XcodeID(file.file)+" /* "+file.name+" */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = \""+CString(GetBase(file.name))+"\"; path = \""+CString(UnixPath(file.name))+"\"; sourceTree = \"<absolute>\"; };\n";
    }
-   FREPA(libs_ios)
+   if(include_ios)FREPA(libs_ios)
    {
       XcodeFile &file=ios_frameworks.New();
       file.name =libs_ios[i];
@@ -2117,7 +2113,7 @@ Bool CodeEditor::generateXcodeProj()
       BuildFile &bf=build_files[i]; if(bf.mode==BuildFile::SOURCE)
       {
          add+=S+"\t\t"+XcodeID(bf.xcode_mac_id)+" /* Mac: "+Replace(bf.dest_proj_path, '*', '\0')+" */ = {isa = PBXBuildFile; fileRef = "+XcodeID(bf.xcode_file_id)+" /* "+Replace(bf.dest_proj_path, '*', '\0')+" */; };\n";
-         add+=S+"\t\t"+XcodeID(bf.xcode_ios_id)+" /* iOS: "+Replace(bf.dest_proj_path, '*', '\0')+" */ = {isa = PBXBuildFile; fileRef = "+XcodeID(bf.xcode_file_id)+" /* "+Replace(bf.dest_proj_path, '*', '\0')+" */; };\n";
+         if(include_ios)add+=S+"\t\t"+XcodeID(bf.xcode_ios_id)+" /* iOS: "+Replace(bf.dest_proj_path, '*', '\0')+" */ = {isa = PBXBuildFile; fileRef = "+XcodeID(bf.xcode_file_id)+" /* "+Replace(bf.dest_proj_path, '*', '\0')+" */; };\n";
       }
    }
    REPA(mac_assets)
@@ -2125,7 +2121,7 @@ Bool CodeEditor::generateXcodeProj()
       XcodeFile &file=mac_assets[i];
       add+=S+"\t\t"+XcodeID(file.build)+" /* Mac: "+file.name+" */ = {isa = PBXBuildFile; fileRef = "+XcodeID(file.file)+" /* "+file.name+" */; };\n";
    }
-   REPA(ios_images)
+   if(include_ios)REPA(ios_images)
    {
       XcodeFile &file=ios_images[i];
       add+=S+"\t\t"+XcodeID(file.build)+" /* iOS: "+file.name+" */ = {isa = PBXBuildFile; fileRef = "+XcodeID(file.file)+" /* "+file.name+" */; };\n";
@@ -2141,7 +2137,7 @@ Bool CodeEditor::generateXcodeProj()
       XcodeFile &file=mac_frameworks[i];
       add+=S+"\t\t"+XcodeID(file.build)+" /* Mac: "+file.name+" */ = {isa = PBXBuildFile; fileRef = "+XcodeID(file.file)+" /* "+file.name+" */; };\n";
    }
-   REPA(ios_frameworks)
+   if(include_ios)REPA(ios_frameworks)
    {
       XcodeFile &file=ios_frameworks[i];
       add+=S+"\t\t"+XcodeID(file.build)+" /* iOS: "+file.name+" */ = {isa = PBXBuildFile; fileRef = "+XcodeID(file.file)+" /* "+file.name+" */; };\n";
@@ -2165,15 +2161,17 @@ Bool CodeEditor::generateXcodeProj()
    }
    str.insert(pos, add);
 
-   if(!GetXcodeProjTextPos(str, pos, "/* ESENTHEL IOS FRAMEWORKS */"))return false;
-   add.clear();
-   REPA(ios_frameworks)
+   if(include_ios)
    {
-      XcodeFile &file=ios_frameworks[i];
-//            0B9F062816CD7C2B006A0106 /* Engine.pak in Resources */,
-      add+=S+"\t\t\t\t"+XcodeID(file.build)+" /* "+file.name+" */,\n";
+      if(!GetXcodeProjTextPos(str, pos, "/* ESENTHEL IOS FRAMEWORKS */"))return false;
+      add.clear();
+      REPA(ios_frameworks)
+      {
+         XcodeFile &file=ios_frameworks[i];
+         add+=S+"\t\t\t\t"+XcodeID(file.build)+" /* "+file.name+" */,\n";
+      }
+      str.insert(pos, add);
    }
-   str.insert(pos, add);
 
    if(!GetXcodeProjTextPos(str, pos, "/* ESENTHEL ALL FRAMEWORKS */"))return false;
    add.clear();
@@ -2189,10 +2187,9 @@ Bool CodeEditor::generateXcodeProj()
 //            0B9F062816CD7C2B006A0106 /* Engine.pak in Resources */,
       add+=S+"\t\t\t\t"+XcodeID(file.file)+" /* "+file.name+" */,\n";
    }
-   REPA(ios_frameworks)
+   if(include_ios)REPA(ios_frameworks)
    {
       XcodeFile &file=ios_frameworks[i];
-//            0B9F062816CD7C2B006A0106 /* Engine.pak in Resources */,
       add+=S+"\t\t\t\t"+XcodeID(file.file)+" /* "+file.name+" */,\n";
    }
    str.insert(pos, add);
@@ -2238,7 +2235,7 @@ Bool CodeEditor::generateXcodeProj()
       XcodeFile &file=mac_assets[i];
       add+=S+"\t\t\t\t"+XcodeID(file.file)+" /* "+file.name+" */,\n";
    }
-   REPA(ios_images)
+   if(include_ios)REPA(ios_images)
    {
       XcodeFile &file=ios_images[i];
       add+=S+"\t\t\t\t"+XcodeID(file.file)+" /* "+file.name+" */,\n";
@@ -2256,16 +2253,17 @@ Bool CodeEditor::generateXcodeProj()
    }
    str.insert(pos, add);
 
-   if(!GetXcodeProjTextPos(str, pos, "/* ESENTHEL IOS EMBED */"))return false;
-   add.clear();
-   REPA(ios_images)
+   if(include_ios)
    {
-      XcodeFile &file=ios_images[i];
-// Sample:
-//            0B9F062816CD7C2B006A0106 /* Engine.pak in Resources */,
-      add+=S+"\t\t\t\t"+XcodeID(file.build)+" /* "+file.name+" */,\n";
+      if(!GetXcodeProjTextPos(str, pos, "/* ESENTHEL IOS EMBED */"))return false;
+      add.clear();
+      REPA(ios_images)
+      {
+         XcodeFile &file=ios_images[i];
+         add+=S+"\t\t\t\t"+XcodeID(file.build)+" /* "+file.name+" */,\n";
+      }
+      str.insert(pos, add);
    }
-   str.insert(pos, add);
 
    if(!GetXcodeProjTextPos(str, pos, "/* ESENTHEL MAC SOURCE */"))return false;
    add.clear();
@@ -2280,18 +2278,19 @@ Bool CodeEditor::generateXcodeProj()
    }
    str.insert(pos, add);
 
-   if(!GetXcodeProjTextPos(str, pos, "/* ESENTHEL IOS SOURCE */"))return false;
-   add.clear();
-   REPA(build_files)
+   if(include_ios)
    {
-      BuildFile &bf=build_files[i]; if(bf.mode==BuildFile::SOURCE)
+      if(!GetXcodeProjTextPos(str, pos, "/* ESENTHEL IOS SOURCE */"))return false;
+      add.clear();
+      REPA(build_files)
       {
-// Sample:
-//            0B9F063216CD7D29006A0106 /* Main.cpp in Sources */,
-         add+=S+"\t\t\t\t"+XcodeID(bf.xcode_ios_id)+" /* "+Replace(bf.dest_proj_path, '*', '\0')+" */,\n";
+         BuildFile &bf=build_files[i]; if(bf.mode==BuildFile::SOURCE)
+         {
+            add+=S+"\t\t\t\t"+XcodeID(bf.xcode_ios_id)+" /* "+Replace(bf.dest_proj_path, '*', '\0')+" */,\n";
+         }
       }
+      str.insert(pos, add);
    }
-   str.insert(pos, add);
 
    // dirs
    Str include_dirs; FREPA(dirs)include_dirs.line()+=S+'"'+CString(S+'"'+dirs[i]+'"')+"\",";
@@ -2360,8 +2359,11 @@ Bool CodeEditor::generateAndroidProj()
    {
        XmlData  xml;
        XmlNode &res=xml.nodes.New().setName("resources");
-      {XmlNode &n  =res.nodes.New().setName("string"); n.params.New().set("name", "facebook_app_id"         ); n.data.add(       cei().appFacebookAppID());}
-      {XmlNode &n  =res.nodes.New().setName("string"); n.params.New().set("name", "fb_login_protocol_scheme"); n.data.add(S+"fb"+cei().appFacebookAppID());}
+      if(ULong id=cei().appFacebookAppID())
+      {
+         {XmlNode &n=res.nodes.New().setName("string"); n.params.New().set("name", "facebook_app_id"         ); n.data.add( id);}
+         {XmlNode &n=res.nodes.New().setName("string"); n.params.New().set("name", "fb_login_protocol_scheme"); n.data.add(S+"fb"+id);}
+      }
       if(!OverwriteOnChangeLoud(xml, build_path+"Android/res/values/strings.xml"))return false;
    }
  /*// file paths needed for "android.support.v4.content.FileProvider"
@@ -2697,6 +2699,7 @@ Bool CodeEditor::generateLinuxMakeProj()
    Str bin_path=BinPath(),
        EE_APP_NAME=UnixEncode(GetBase(build_exe)),
        EE_LIB_PATH=UnixEncode(bin_path+"EsenthelEngine.a"),
+       EE_PCH_DEP=UnixEncode(bin_path+"EsenthelEngine/_/headers.h"),
        EXTERNAL_LIBS,
        EE_HEADER_PATH,
        EE_OBJ_FILES,
@@ -2707,8 +2710,7 @@ Bool CodeEditor::generateLinuxMakeProj()
       Memc<Str> app_libs=GetFiles(cei().appLibsLinux());
       FREPA(app_libs)libs.add(app_libs[i]);
    }
-   if(cei().appPublishSteamDll ())libs.add("Bin/libsteam_api.so" ); // this must be relative to the EXE because this path will be embedded in the executable ("Bin/" is needed because without it building will fail)
-   if(cei().appPublishOpenVRDll())libs.add("Bin/libopenvr_api.so"); // this must be relative to the EXE because this path will be embedded in the executable ("Bin/" is needed because without it building will fail)
+   if(cei().appPublishSteamDll())libs.add("Bin/libsteam_api.so"); // this must be relative to the EXE because this path will be embedded in the executable ("Bin/" is needed because without it building will fail)
    FREPA(libs)EXTERNAL_LIBS.space()+=UnixEncode(libs[i]);
 
    Memc<Str> dirs=GetFiles(cei().appDirsNonWindows());
@@ -2758,6 +2760,7 @@ Bool CodeEditor::generateLinuxMakeProj()
    if(!f.read("Code/Linux/nbproject/Makefile-Debug.mk"))return ErrorRead("Code/Linux/nbproject/Makefile-Debug.mk"); f.getAll(s);
    s=Replace(s, "EE_APP_NAME"   , EE_APP_NAME       , true, WHOLE_WORD_STRICT);
    s=Replace(s, "EE_LIB_PATH"   , EE_LIB_PATH       , true, WHOLE_WORD_STRICT);
+   s=Replace(s, "EE_PCH_DEP"    , EE_PCH_DEP        , true, WHOLE_WORD_STRICT);
    s=Replace(s, "EE_HEADER_PATH", EE_HEADER_PATH    , true, WHOLE_WORD_STRICT);
    s=Replace(s, "EE_OBJ_FILES"  , EE_OBJ_FILES      , true, WHOLE_WORD_STRICT);
    s=Replace(s, "EE_CPP_FILES"  , EE_CPP_FILES_Debug, true, WHOLE_WORD_STRICT);
@@ -2767,6 +2770,7 @@ Bool CodeEditor::generateLinuxMakeProj()
    if(!f.read("Code/Linux/nbproject/Makefile-Release.mk"))return ErrorRead("Code/Linux/nbproject/Makefile-Release.mk"); f.getAll(s);
    s=Replace(s, "EE_APP_NAME"   , EE_APP_NAME         , true, WHOLE_WORD_STRICT);
    s=Replace(s, "EE_LIB_PATH"   , EE_LIB_PATH         , true, WHOLE_WORD_STRICT);
+   s=Replace(s, "EE_PCH_DEP"    , EE_PCH_DEP          , true, WHOLE_WORD_STRICT);
    s=Replace(s, "EE_HEADER_PATH", EE_HEADER_PATH      , true, WHOLE_WORD_STRICT);
    s=Replace(s, "EE_OBJ_FILES"  , EE_OBJ_FILES        , true, WHOLE_WORD_STRICT);
    s=Replace(s, "EE_CPP_FILES"  , EE_CPP_FILES_Release, true, WHOLE_WORD_STRICT);
@@ -2775,17 +2779,6 @@ Bool CodeEditor::generateLinuxMakeProj()
 
 #if LINUX // do this only on Linux because only on Linux SDK the *.so files are available
    Str bin_dest=build_path+"Bin/";
-   #if PHYSX_DLL // PhysX DLL's
-      if(cei().appPublishPhysxDll()) // this must be copied always (unlike for Windows where it's copied only for publishing), because on Windows we can specify a custom path for the DLL's, however on Linux it needs to be hardcoded to "./Bin/", so everytime we want to start an app, it needs to have the .so files in the Bin relative to the executable
-      {
-         FCreateDir(bin_dest);
-         CChar8 *dlls[]=
-         {
-            "libPhysXGpu_64.so",
-         };
-         FREPA(dlls)if(!CopyFile(bin_path+dlls[i], bin_dest+dlls[i]))return false;
-      }
-   #endif
    // Steam DLL's
    if(cei().appPublishSteamDll()) // this must be copied always, because libs on Linux need to be hardcoded to "./Bin/", so everytime we want to start an app, it needs to have the .so files in the Bin relative to the executable
    {
@@ -2793,16 +2786,6 @@ Bool CodeEditor::generateLinuxMakeProj()
       CChar8 *dlls[]=
       {
          "libsteam_api.so",
-      };
-      FREPA(dlls)if(!CopyFile(bin_path+dlls[i], bin_dest+dlls[i]))return false;
-   }
-   // OpenVR DLL's
-   if(cei().appPublishOpenVRDll()) // this must be copied always because libs on Linux need to be hardcoded to "./Bin/", so everytime we want to start an app, it needs to have the .so files in the Bin relative to the executable
-   {
-      FCreateDir(bin_dest);
-      CChar8 *dlls[]=
-      {
-         "libopenvr_api.so",
       };
       FREPA(dlls)if(!CopyFile(bin_path+dlls[i], bin_dest+dlls[i]))return false;
    }
@@ -2876,8 +2859,7 @@ Bool CodeEditor::generateLinuxNBProj()
          Memc<Str> app_libs=GetFiles(cei().appLibsLinux());
          FREPA(app_libs)libs.add(app_libs[i]);
       }
-      if(cei().appPublishSteamDll ())libs.add(bin_path+ "libsteam_api.so");
-      if(cei().appPublishOpenVRDll())libs.add(bin_path+"libopenvr_api.so");
+      if(cei().appPublishSteamDll())libs.add(bin_path+"libsteam_api.so");
       FREPA(libs)EXTERNAL_LIBS+=S+"<linkerLibFileItem>"+XmlString(libs[i])+"</linkerLibFileItem>\n";
 
       Memc<Str> dirs=GetFiles(cei().appDirsNonWindows());
@@ -2925,7 +2907,7 @@ Bool CodeEditor::Export(EXPORT_MODE mode, BUILD_MODE build_mode)
       case EXPORT_LINUX_NETBEANS:
       case EXPORT_LINUX_MAKE    : build_exe_type=EXE_LINUX; break;
       case EXPORT_ANDROID       : build_exe_type=EXE_APK  ; break;
-      case EXPORT_XCODE         : if(build_exe_type!=EXE_MAC && build_exe_type!=EXE_IOS)build_exe_type=EXE_MAC; break;
+      case EXPORT_XCODE         : if(build_exe_type==EXE_IOS){Error("iOS export support has been removed. Use \"Mac APP\" for Xcode exports."); return false;} if(build_exe_type!=EXE_MAC)build_exe_type=EXE_MAC; break;
       // no need to check for VS as it will just fail with a message box about exe/dll/web support only
    }
 
@@ -2938,6 +2920,8 @@ Bool CodeEditor::Export(EXPORT_MODE mode, BUILD_MODE build_mode)
    if(!verifyBuildPath())Error("No application selected or it has invalid name.");else
    {
       if(mode==EXPORT_EXE)mode=ExeToMode(build_exe_type);
+      if(mode==EXPORT_ANDROID){Error("Android export support has been removed."); return false;}
+      if(mode==EXPORT_XCODE && build_exe_type==EXE_IOS){Error("iOS export support has been removed. Use \"Mac APP\" for Xcode exports."); return false;}
       if(mode==EXPORT_VS)
       {
          // #VisualStudio
@@ -3016,7 +3000,8 @@ void CodeEditor::killBuild()
 /******************************************************************************/
 void CodeEditor::build(BUILD_MODE mode)
 {
-   if((mode==BUILD_PLAY || mode==BUILD_PUBLISH) && (config_exe==EXE_UWP || config_exe==EXE_IOS || config_exe==EXE_NS)){openIDE(); return;} // Play/Publish for WindowsNew and iOS must be done from the IDE
+   if(config_exe==EXE_IOS){Error("iOS export support has been removed. Use \"Mac APP\" for Xcode exports."); return;}
+   if((mode==BUILD_PLAY || mode==BUILD_PUBLISH) && (config_exe==EXE_UWP || config_exe==EXE_NS)){openIDE(); return;} // Play/Publish for WindowsNew must be done from the IDE
 
    if(Export(EXPORT_EXE, mode))
    {

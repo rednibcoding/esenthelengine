@@ -1,7 +1,7 @@
 /******************************************************************************/
 @class EAGLView;
 
-@interface iOSAppDelegate : NSObject<UIApplicationDelegate, CLLocationManagerDelegate, FBSDKSharingDelegate>
+@interface iOSAppDelegate : NSObject<UIApplicationDelegate, CLLocationManagerDelegate>
 {
    UIWindow         *window;
    UIViewController *controller;

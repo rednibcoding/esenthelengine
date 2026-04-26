@@ -8,15 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0B9F062B16CD7C6D006A0106 /* EsenthelEngine Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B9F062A16CD7C6D006A0106 /* EsenthelEngine Mac.a */; };
-		0B80B0021238567700C08944 /* EsenthelEngine iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B80B0011238567700C08944 /* EsenthelEngine iOS.a */; };
-		3725F1F125237F1300E1ED89 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3725F1F025237F1300E1ED89 /* StoreKit.framework */; };
-		37307DB821AFDF81009ABBF9 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37307DB721AFDF80009ABBF9 /* WebKit.framework */; };
-		37307DBA21AFDF88009ABBF9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37307DB921AFDF87009ABBF9 /* Security.framework */; };
 		0B9F061B16CD7B80006A0106 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0B9F060816CD7B80006A0106 /* Icon.icns */; };
-		0B9F062416CD7B80006A0106 /* iOS.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B9F060C16CD7B80006A0106 /* iOS.xib */; };
-		0B9F062816CD7C2B006A0106 /* Engine.pak in Resources */ = {isa = PBXBuildFile; fileRef = 0B9F062516CD7C21006A0106 /* Engine.pak */; };
-		0B9F062916CD7C2B006A0106 /* Project.pak in Resources */ = {isa = PBXBuildFile; fileRef = 0B9F062516CD7C22006A0106 /* Project.pak */; };
-		3790A50D22A3DE7F003F81E2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3790A50C22A3DE7F003F81E2 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,21 +26,10 @@
 
 /* Begin PBXFileReference section */
 		0B9F062A16CD7C6D006A0106 /* EsenthelEngine Mac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "EsenthelEngine Mac.a"; path = "EsenthelEngine Mac.a"; sourceTree = "<absolute>"; };
-		0B80B0011238567700C08944 /* EsenthelEngine iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "EsenthelEngine iOS.a"; path = "EsenthelEngine iOS.a"; sourceTree = "<absolute>"; };
-		0B987D3C12385BE500071DE8 /* EsenthelEngine iOS Simulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "EsenthelEngine iOS Simulator.a"; path = "EsenthelEngine iOS Simulator.a"; sourceTree = "<absolute>"; };
-		3725F1F025237F1300E1ED89 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		37307DB721AFDF80009ABBF9 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		37307DB921AFDF87009ABBF9 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		0B9F062516CD7C21006A0106 /* Engine.pak */ = {isa = PBXFileReference; lastKnownFileType = file; name = Engine.pak; path = "Engine.pak"; sourceTree = "<absolute>"; };
-		0B9F062516CD7C22006A0106 /* Project.pak */ = {isa = PBXFileReference; lastKnownFileType = file; name = Project.pak; path = Assets/Project.pak; sourceTree = "<group>"; };
-		3790A50C22A3DE7F003F81E2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Assets/Images.xcassets; sourceTree = "<group>"; };
 		0B9F05BF16CD7377006A0106 /* Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B9F060816CD7B80006A0106 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = Assets/Icon.icns; sourceTree = "<group>"; };
-		0B9F060C16CD7B80006A0106 /* iOS.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = iOS.xib; path = Assets/iOS.xib; sourceTree = "<group>"; };
 		0B9F063B16CD7F75006A0106 /* Mac.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Mac.plist; path = Assets/Mac.plist; sourceTree = "<group>"; };
-		0B9F063C16CD802D006A0106 /* iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = iOS.plist; path = Assets/iOS.plist; sourceTree = "<group>"; };
 		0B9F065B16CD9232006A0106 /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdafx.h; sourceTree = "<group>"; };
-		0BDA9C7F121EE06400ED5E97 /* iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,18 +39,6 @@
 			files = (
 				0B9F062B16CD7C6D006A0106 /* EsenthelEngine Mac.a in Frameworks */,
 /* ESENTHEL MAC FRAMEWORKS */
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0BDA9C7D121EE06400ED5E97 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3725F1F125237F1300E1ED89 /* StoreKit.framework in Frameworks */,
-				37307DBA21AFDF88009ABBF9 /* Security.framework in Frameworks */,
-				37307DB821AFDF81009ABBF9 /* WebKit.framework in Frameworks */,
-				0B80B0021238567700C08944 /* EsenthelEngine iOS.a in Frameworks */,
-/* ESENTHEL IOS FRAMEWORKS */
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +57,6 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0BDA9C7F121EE06400ED5E97 /* iOS.app */,
 				0B9F05BF16CD7377006A0106 /* Mac.app */,
 			);
 			name = Products;
@@ -109,13 +77,8 @@
 		29B97317FDCFA39411CA2CEA /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				3790A50C22A3DE7F003F81E2 /* Images.xcassets */,
-				0B9F062516CD7C21006A0106 /* Engine.pak */,
-				0B9F062516CD7C22006A0106 /* Project.pak */,
 				0B9F060816CD7B80006A0106 /* Icon.icns */,
 				0B9F063B16CD7F75006A0106 /* Mac.plist */,
-				0B9F063C16CD802D006A0106 /* iOS.plist */,
-				0B9F060C16CD7B80006A0106 /* iOS.xib */,
 /* ESENTHEL ASSETS CHILDREN */
 			);
 			name = Assets;
@@ -124,12 +87,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3725F1F025237F1300E1ED89 /* StoreKit.framework */,
-				37307DB921AFDF87009ABBF9 /* Security.framework */,
-				37307DB721AFDF80009ABBF9 /* WebKit.framework */,
 				0B9F062A16CD7C6D006A0106 /* EsenthelEngine Mac.a */,
-				0B80B0011238567700C08944 /* EsenthelEngine iOS.a */,
-				0B987D3C12385BE500071DE8 /* EsenthelEngine iOS Simulator.a */,
 /* ESENTHEL ALL FRAMEWORKS */
 			);
 			name = Frameworks;
@@ -156,23 +114,6 @@
 			productReference = 0B9F05BF16CD7377006A0106 /* Mac.app */;
 			productType = "com.apple.product-type.application";
 		};
-		0BDA9C7E121EE06400ED5E97 /* iOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0BDA9C84121EE06400ED5E97 /* Build configuration list for PBXNativeTarget "iOS" */;
-			buildPhases = (
-				0BDA9C7B121EE06400ED5E97 /* Resources */,
-				0BDA9C7C121EE06400ED5E97 /* Sources */,
-				0BDA9C7D121EE06400ED5E97 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = iOS;
-			productName = iPhone;
-			productReference = 0BDA9C7F121EE06400ED5E97 /* iOS.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -184,14 +125,6 @@
 					0B9F05BE16CD7377006A0106 = {
 						DevelopmentTeam = "";
 						ProvisioningStyle = Manual;
-					};
-					0BDA9C7E121EE06400ED5E97 = {
-						DevelopmentTeam = "";
-						SystemCapabilities = {
-							com.apple.InAppPurchase = {
-								enabled = 1;
-							};
-						};
 					};
 				};
 			};
@@ -211,7 +144,6 @@
 			projectRoot = "";
 			targets = (
 				0B9F05BE16CD7377006A0106 /* Mac */,
-				0BDA9C7E121EE06400ED5E97 /* iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -226,18 +158,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0BDA9C7B121EE06400ED5E97 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3790A50D22A3DE7F003F81E2 /* Images.xcassets in Resources */,
-				0B9F062416CD7B80006A0106 /* iOS.xib in Resources */,
-				0B9F062816CD7C2B006A0106 /* Engine.pak in Resources */,
-				0B9F062916CD7C2B006A0106 /* Project.pak in Resources */,
-/* ESENTHEL IOS EMBED */
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -246,14 +166,6 @@
 			buildActionMask = 2147483647;
 			files = (
 /* ESENTHEL MAC SOURCE */
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0BDA9C7C121EE06400ED5E97 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-/* ESENTHEL IOS SOURCE */
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,95 +241,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "";
 				PRODUCT_NAME = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-			};
-			name = Release;
-		};
-		0BDA9C82121EE06400ED5E97 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
-				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "$(SRCROOT)/Assets/iOS.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				OTHER_LDFLAGS = (
-					"-framework QuartzCore",
-					"-framework UIKit",
-					"-framework Foundation",
-					"-framework EventKit",
-					"-framework EventKitUI",
-					"-framework CoreMedia",
-					"-framework CoreMotion",
-					"-framework CoreLocation",
-					"-framework CoreGraphics",
-					"-framework CoreTelephony",
-					"-framework AudioToolbox",
-					"-framework AVFoundation",
-					"-framework SystemConfiguration",
-					"-framework MessageUI",
-					"-framework AdSupport",
-					"-framework OpenGLES",
-					"-framework OpenAL",
-					"-lz",
-					"-ObjC", // needed by Facebook
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-/* ESENTHEL IOS LIBRARY DIRS */
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "";
-				PRODUCT_NAME = "";
-				PROVISIONING_PROFILE = "";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		0BDA9C83121EE06400ED5E97 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
-				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "$(SRCROOT)/Assets/iOS.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				OTHER_LDFLAGS = (
-					"-framework QuartzCore",
-					"-framework UIKit",
-					"-framework Foundation",
-					"-framework EventKit",
-					"-framework EventKitUI",
-					"-framework CoreMedia",
-					"-framework CoreMotion",
-					"-framework CoreLocation",
-					"-framework CoreGraphics",
-					"-framework CoreTelephony",
-					"-framework AudioToolbox",
-					"-framework AVFoundation",
-					"-framework SystemConfiguration",
-					"-framework MessageUI",
-					"-framework AdSupport",
-					"-framework OpenGLES",
-					"-framework OpenAL",
-					"-lz",
-					"-ObjC", // needed by Facebook
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-/* ESENTHEL IOS LIBRARY DIRS */
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "";
-				PRODUCT_NAME = "";
-				PROVISIONING_PROFILE = "";
-				SDKROOT = iphoneos;
-				STRIP_INSTALLED_PRODUCT = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -516,15 +339,6 @@
 			buildConfigurations = (
 				0B9F05EE16CD7378006A0106 /* Debug */,
 				0B9F05EF16CD7378006A0106 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0BDA9C84121EE06400ED5E97 /* Build configuration list for PBXNativeTarget "iOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0BDA9C82121EE06400ED5E97 /* Debug */,
-				0BDA9C83121EE06400ED5E97 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,6 +1,6 @@
 ﻿/******************************************************************************/
 #include "stdafx.h"
-#define SUPPORT_OPEN_VR (WINDOWS_OLD || MAC || LINUX)
+#define SUPPORT_OPEN_VR 0
 #if     SUPPORT_OPEN_VR
    #if LINUX
       #define COMPILER_GCC // needs to be defined for Linux otherwise "openvr.h" will complain about unsupported platform

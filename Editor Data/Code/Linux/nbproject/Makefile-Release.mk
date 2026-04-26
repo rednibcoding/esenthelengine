@@ -77,14 +77,6 @@ LDLIBSOPTIONS=EE_LIB_PATH \
  ../../../../ThirdPartyLibs/FDK-AAC/Linux/dist/Release/GNU-Linux/liblinux.a \
  ../../../../ThirdPartyLibs/mbedTLS/Linux/dist/Release/GNU-Linux/liblinux.a \
  ../../../../ThirdPartyLibs/Xml2/Linux/libxml2.a \
- ../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysX_static_64.a \
- ../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCharacterKinematic_static_64.a \
- ../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCooking_static_64.a \
- ../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXExtensions_static_64.a \
- ../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXFoundation_static_64.a \
- ../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXPvdSDK_static_64.a \
- ../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXVehicle_static_64.a \
- ../../../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCommon_static_64.a \
  EXTERNAL_LIBS -Wl,-rpath,Bin -lpthread -ldl -lX11 -lXi -lXinerama -lXrandr -lrt -lXmu -lGL -lopenal -lz -lodbc -ludev -lXcursor -lXxf86vm
 
 # Build Targets
@@ -98,9 +90,10 @@ EE_APP_NAME: ${OBJECTFILES}
 
 EE_CPP_FILES
 
-stdafx.h.pch: stdafx.h
+stdafx.h.pch: stdafx.h EE_PCH_DEP
 	${MKDIR} -p ..
 	@echo Performing Custom Build Step
+	${RM} stdafx.h.pch
 	clang++ -x c++-header stdafx.h -o stdafx.h.pch $(CXXFLAGS) -O3 -DDEBUG=0 -I. EE_HEADER_PATH -std=c++17
 
 # Subprojects

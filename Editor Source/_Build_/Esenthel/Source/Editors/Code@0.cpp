@@ -33,8 +33,6 @@ AppPropsEditor AppPropsEdit;
       "Windows",
       "Mac",
       "Linux",
-      "Android",
-      "iOS",
       "Nintendo",
    };
    cchar8 *AppPropsEditor::platforms2_t[]=
@@ -63,14 +61,12 @@ AppPropsEditor AppPropsEdit;
       //Misc.build.menu("DirectX 11", configAPI(), QUIET);
    }
    void CodeView::configChangedEXE()
-{
+   {
       Misc.build.menu("Windows EXE"      , configEXE()==Edit::EXE_EXE  , QUIET);
       Misc.build.menu("Windows DLL"      , configEXE()==Edit::EXE_DLL  , QUIET);
       Misc.build.menu("Windows LIB"      , configEXE()==Edit::EXE_LIB  , QUIET);
       Misc.build.menu("Windows Universal", configEXE()==Edit::EXE_UWP  , QUIET);
-      Misc.build.menu("Android APK"      , configEXE()==Edit::EXE_APK  , QUIET);
       Misc.build.menu("Mac APP"          , configEXE()==Edit::EXE_MAC  , QUIET);
-      Misc.build.menu("iOS APP"          , configEXE()==Edit::EXE_IOS  , QUIET);
       Misc.build.menu("Linux"            , configEXE()==Edit::EXE_LINUX, QUIET);
       Misc.build.menu("Web"              , configEXE()==Edit::EXE_WEB  , QUIET);
       Misc.build.menu("Nintendo Switch"  , configEXE()==Edit::EXE_NS   , QUIET);
@@ -78,7 +74,7 @@ AppPropsEditor AppPropsEdit;
    void CodeView::visibleChangedOptions(){Misc.build.menu("View Options"           , visibleOptions      (), QUIET);}
    void CodeView::visibleChangedOpenedFiles(){}
    void CodeView::visibleChangedOutput(){Misc.build.menu("View Output"            , visibleOutput       (), QUIET);}
-   void CodeView::visibleChangedAndroidDevLog(){Misc.build.menu("View Android Device Log", visibleAndroidDevLog(), QUIET);}
+   void CodeView::visibleChangedAndroidDevLog(){}
    UID CodeView::projectID(){return Proj.id;}
    UID               CodeView::appID(){if(Elm *app=Proj.findElm(Proj.curApp()))                                  return app->id                          ; return super::appID();}
    Str               CodeView::appName(){if(Elm *app=Proj.findElm(Proj.curApp()))                                  return app->name                        ; return super::appName();}
@@ -87,14 +83,14 @@ AppPropsEditor AppPropsEdit;
    Str               CodeView::appHeadersWindows(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->headers_windows        ; return super::appHeadersWindows();}
    Str               CodeView::appHeadersMac(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->headers_mac            ; return super::appHeadersMac();}
    Str               CodeView::appHeadersLinux(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->headers_linux          ; return super::appHeadersLinux();}
-   Str               CodeView::appHeadersAndroid(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->headers_android        ; return super::appHeadersAndroid();}
-   Str               CodeView::appHeadersiOS(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->headers_ios            ; return super::appHeadersiOS();}
+   Str               CodeView::appHeadersAndroid(){return S;}
+   Str               CodeView::appHeadersiOS(){return S;}
    Str               CodeView::appHeadersNintendo(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->headers_nintendo       ; return super::appHeadersNintendo();}
    Str               CodeView::appLibsWindows(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->libs_windows           ; return super::appLibsWindows();}
    Str               CodeView::appLibsMac(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->libs_mac               ; return super::appLibsMac();}
    Str               CodeView::appLibsLinux(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->libs_linux             ; return super::appLibsLinux();}
-   Str               CodeView::appLibsAndroid(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->libs_android           ; return super::appLibsAndroid();}
-   Str               CodeView::appLibsiOS(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->libs_ios               ; return super::appLibsiOS();}
+   Str               CodeView::appLibsAndroid(){return S;}
+   Str               CodeView::appLibsiOS(){return S;}
    Str               CodeView::appLibsNintendo(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->libs_nintendo          ; return super::appLibsNintendo();}
    Str               CodeView::appPackage(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->package                ; return super::appPackage();}
    UID               CodeView::appMicrosoftPublisherID(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->ms_publisher_id        ; return super::appMicrosoftPublisherID();}
@@ -107,13 +103,13 @@ AppPropsEditor AppPropsEdit;
    ULong             CodeView::appNintendoAppID(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->nintendo_app_id        ; return super::appNintendoAppID();}
    Str               CodeView::appNintendoPublisherName(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->nintendo_publisher_name; return super::appNintendoPublisherName();}
    Int               CodeView::appBuild(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->build                  ; return super::appBuild();}
-   ulong             CodeView::appFacebookAppID(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->fb_app_id              ; return super::appFacebookAppID();}
-   Str               CodeView::appAdMobAppIDiOS(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->am_app_id_ios          ; return super::appAdMobAppIDiOS();}
-   Str               CodeView::appAdMobAppIDGooglePlay(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->am_app_id_google       ; return super::appAdMobAppIDGooglePlay();}
-   Str               CodeView::appChartboostAppIDiOS(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->cb_app_id_ios          ; return super::appChartboostAppIDiOS();}
-   Str               CodeView::appChartboostAppSignatureiOS(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->cb_app_signature_ios   ; return super::appChartboostAppSignatureiOS();}
-   Str               CodeView::appChartboostAppIDGooglePlay(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->cb_app_id_google       ; return super::appChartboostAppIDGooglePlay();}
-   Str               CodeView::appChartboostAppSignatureGooglePlay(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->cb_app_signature_google; return super::appChartboostAppSignatureGooglePlay();}
+   ulong             CodeView::appFacebookAppID(){return 0;}
+   Str               CodeView::appAdMobAppIDiOS(){return S;}
+   Str               CodeView::appAdMobAppIDGooglePlay(){return S;}
+   Str               CodeView::appChartboostAppIDiOS(){return S;}
+   Str               CodeView::appChartboostAppSignatureiOS(){return S;}
+   Str               CodeView::appChartboostAppIDGooglePlay(){return S;}
+   Str               CodeView::appChartboostAppSignatureGooglePlay(){return S;}
    Edit::STORAGE_MODE CodeView::appPreferredStorage(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->storage                ; return super::appPreferredStorage();}
    UInt              CodeView::appSupportedOrientations(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->supported_orientations ; return super::appSupportedOrientations();}
    UID               CodeView::appGuiSkin(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->gui_skin               ; return super::appGuiSkin();}
@@ -125,9 +121,9 @@ AppPropsEditor AppPropsEdit;
    Bool              CodeView::appPublishProjData(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->publishProjData ()     ; return super::appPublishProjData();}
    Bool              CodeView::appPublishPhysxDll(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->publishPhysxDll ()     ; return super::appPublishPhysxDll();}
    Bool              CodeView::appPublishSteamDll(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->publishSteamDll ()     ; return super::appPublishSteamDll();}
-   Bool              CodeView::appPublishOpenVRDll(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->publishOpenVRDll()     ; return super::appPublishOpenVRDll();}
+   Bool              CodeView::appPublishOpenVRDll(){return false;}
    Bool              CodeView::appPublishDataAsPak(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->publishDataAsPak()     ; return super::appPublishDataAsPak();}
-   Bool              CodeView::appAndroidExpansion(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())return app_data->androidExpansion()     ; return super::appAndroidExpansion();}
+   Bool              CodeView::appAndroidExpansion(){return false;}
    ImagePtr          CodeView::appIcon(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())if(app_data->icon             .valid())return ImagePtr().get(Proj.gamePath(app_data->icon             )); return super::appIcon();}
    ImagePtr          CodeView::appImagePortrait(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())if(app_data->image_portrait   .valid())return ImagePtr().get(Proj.gamePath(app_data->image_portrait   )); return super::appImagePortrait();}
    ImagePtr          CodeView::appImageLandscape(){if(Elm *app=Proj.findElm(Proj.curApp()))if(ElmApp *app_data=app->appData())if(app_data->image_landscape  .valid())return ImagePtr().get(Proj.gamePath(app_data->image_landscape  )); return super::appImageLandscape();}
@@ -310,10 +306,9 @@ AppPropsEditor AppPropsEdit;
          data+="/******************************************************************************/\n";
          // generate constants
          data+=S+"#define    STEAM   "+appPublishSteamDll ()+" // if Application properties have Steam enabled\n" ; // display it here even if it's just Auto.cpp and doesn't affect other codes, so that the user sees the macro and can be aware of it
-         data+=S+"#define    OPEN_VR "+appPublishOpenVRDll()+" // if Application properties have OpenVR enabled\n"; // display it here even if it's just Auto.cpp and doesn't affect other codes, so that the user sees the macro and can be aware of it
+         data+=S+ "#define    OPEN_VR 0 // OpenVR support has been removed\n";
          data+=S+"const bool EE_PUBLISH          =" +TextBool(publish)+"; // this is set to true when compiling for publishing\n";
          data+=S+"const bool EE_ENGINE_EMBED     =("+TextBool(appEmbedEngineData()!=0)+" && !WINDOWS_NEW && !MOBILE && !WEB); // this is set to true when \"Embed Engine Data\" was enabled in application settings, this is always disabled for WindowsNew, Mobile and Web builds\n";
-         data+=S+"const bool EE_ANDROID_EXPANSION=" +TextBool(appAndroidExpansion())+"; // this is set to true when auto-download of Android Expansion Files is enabled\n";
        //data+=S+"cchar *C   EE_SDK_PATH         =                                     \""+Replace(SDKPath()                             , '\\', '/').tailSlash(false)+"\";\n";
        //data+=S+"cchar *C   EE_PHYSX_DLL_PATH   =((WINDOWS_NEW || MOBILE || WEB) ? null           : EE_PUBLISH ? u\"Bin\"             : u\""+Replace(BinPath()                             , '\\', '/').tailSlash(false)+"\");\n";
          data+=S+"cchar *C   EE_ENGINE_PATH      =((WINDOWS_NEW || MOBILE || WEB) ? u\"Engine.pak\"  : EE_PUBLISH ? u\"Bin/Engine.pak\"  : u\""+Replace(BinPath().tailSlash(true)+"Engine.pak", '\\', '/').tailSlash(false)+"\");\n";
@@ -344,12 +339,6 @@ if(appGuiSkin().valid())data+="   Gui.default_skin=EE_GUI_SKIN; // set default G
          data+="   if(load_project_data) // load project data\n";
          data+="   {\n";
          data+="      if(WINDOWS_NEW || MOBILE || WEB || EE_PUBLISH)Paks.add(EE_PROJECT_PATH, EE_PROJECT_CIPHER);else DataPath(EE_PROJECT_PATH);\n";
-         data+="      if(ANDROID && EE_ANDROID_EXPANSION)\n";
-         data+="      {\n";
-         data+="         REP(EE_APP_BUILD+1)if(Paks.addTry(AndroidExpansionFileName(i), EE_PROJECT_CIPHER))goto added;\n";
-         data+="         Exit(\"Can't load Project Data\");\n";
-         data+="      added:;\n";
-         data+="      }\n";
          data+="   }\n";
          data+="}\n";
          data+="void EE_INIT_OBJ_TYPE() // this function will setup 'ObjType' enum used for object types\n";
@@ -447,8 +436,7 @@ if(appGuiSkin().valid())data+="   Gui.default_skin=EE_GUI_SKIN; // set default G
          switch(mode)
          {
             case Edit::EXPORT_EXE    : exe=configEXE(); break;
-            case Edit::EXPORT_ANDROID: exe=Edit::EXE_APK; break;
-            case Edit::EXPORT_XCODE  : exe=Edit::EXE_IOS; break;
+            case Edit::EXPORT_XCODE  : exe=Edit::EXE_MAC; break;
 
             // #VisualStudio
             case Edit::EXPORT_VS    :
@@ -714,14 +702,10 @@ if(appGuiSkin().valid())data+="   Gui.default_skin=EE_GUI_SKIN; // set default G
       PropEx &ihw      =add("Include Headers"            , MemberDesc(DATA_STR                               ).setFunc(HeadersWin                  , HeadersWin                  )).desc("Type full paths to header file names.\nSeparate each with | for example:\nC:\\Lib1\\Main.h | C:\\Lib2\\Main.h");
       PropEx &ihm      =add("Include Headers"            , MemberDesc(DATA_STR                               ).setFunc(HeadersMac                  , HeadersMac                  )).desc("Type full paths to header file names.\nSeparate each with | for example:\nC:\\Lib1\\Main.h | C:\\Lib2\\Main.h");
       PropEx &ihl      =add("Include Headers"            , MemberDesc(DATA_STR                               ).setFunc(HeadersLinux                , HeadersLinux                )).desc("Type full paths to header file names.\nSeparate each with | for example:\nC:\\Lib1\\Main.h | C:\\Lib2\\Main.h");
-      PropEx &iha      =add("Include Headers"            , MemberDesc(DATA_STR                               ).setFunc(HeadersAndroid              , HeadersAndroid              )).desc("Type full paths to header file names.\nSeparate each with | for example:\nC:\\Lib1\\Main.h | C:\\Lib2\\Main.h");
-      PropEx &ihi      =add("Include Headers"            , MemberDesc(DATA_STR                               ).setFunc(HeadersiOS                  , HeadersiOS                  )).desc("Type full paths to header file names.\nSeparate each with | for example:\nC:\\Lib1\\Main.h | C:\\Lib2\\Main.h");
       PropEx &ihn      =add("Include Headers"            , MemberDesc(DATA_STR                               ).setFunc(HeadersNintendo             , HeadersNintendo             )).desc("Type full paths to header file names.\nSeparate each with | for example:\nC:\\Lib1\\Main.h | C:\\Lib2\\Main.h");
       PropEx &ilw      =add("Include Libraries"          , MemberDesc(DATA_STR                               ).setFunc(LibsWindows                 , LibsWindows                 )).desc("Type full paths to lib file names.\nSeparate each with | for example:\nC:\\Lib1\\Main.lib | C:\\Lib2\\Main.lib");
       PropEx &ilm      =add("Include Libraries"          , MemberDesc(DATA_STR                               ).setFunc(LibsMac                     , LibsMac                     )).desc("Type full paths to lib file names.\nSeparate each with | for example:\n/Lib1/Main.a | /Lib2/Main.a");
       PropEx &ill      =add("Include Libraries"          , MemberDesc(DATA_STR                               ).setFunc(LibsLinux                   , LibsLinux                   )).desc("Type full paths to lib file names.\nSeparate each with | for example:\n/Lib1/Main.a | /Lib2/Main.a");
-      PropEx &ila      =add("Include Libraries"          , MemberDesc(DATA_STR                               ).setFunc(LibsAndroid                 , LibsAndroid                 )).desc("Type full paths to lib file names.\nSeparate each with | for example:\nC:\\Lib1\\XXX.a | C:\\Lib2\\libXXX.so\n\n$(TARGET_ARCH_ABI) can be used in the path, which will be replaced with target architecture (such as armeabi-v7a, arm64-v8a, x86, x86_64), for example:\nC:\\Path\\XXX-$(TARGET_ARCH_ABI).a\nC:\\Path\\$(TARGET_ARCH_ABI)\\libXXX.so");
-      PropEx &ili      =add("Include Libraries"          , MemberDesc(DATA_STR                               ).setFunc(LibsiOS                     , LibsiOS                     )).desc("Type full paths to lib file names.\nSeparate each with | for example:\n/Lib1/Main.a | /Lib2/Main.a");
       PropEx &iln      =add("Include Libraries"          , MemberDesc(DATA_STR                               ).setFunc(LibsNintendo                , LibsNintendo                )).desc("Type full paths to lib file names.\nSeparate each with | for example:\n/Lib1/Main.a | /Lib2/Main.a");
       PropEx &ms_pub_id=add("Microsoft Publisher ID"     , MemberDesc(DATA_STR                               ).setFunc(MicrosoftPublisherID        , MicrosoftPublisherID        ));
       PropEx &ms_pub_nm=add("Microsoft Publisher Name"   , MemberDesc(DATA_STR                               ).setFunc(MicrosoftPublisherName      , MicrosoftPublisherName      ));
@@ -730,29 +714,16 @@ if(appGuiSkin().valid())data+="   Gui.default_skin=EE_GUI_SKIN; // set default G
       PropEx &xb_scid  =add("XboxLive SCID"              , MemberDesc(DATA_STR                               ).setFunc(XboxLiveSCID                , XboxLiveSCID                ));
       PropEx &nn_app_id=add("Nintendo App ID"            , MemberDesc(DATA_STR                               ).setFunc(NintendoAppID               , NintendoAppID               ));
       PropEx &nn_pub_nm=add("Nintendo Publisher Name"    , MemberDesc(DATA_STR                               ).setFunc(NintendoPublisherName       , NintendoPublisherName       ));
-      PropEx &am_ai_g  =add("AdMob App ID"               , MemberDesc(MEMBER(ElmApp, am_app_id_google       )).setFunc(AdMobAppIDGoogle            , AdMobAppIDGoogle            )).desc("AdMob Application ID");
-      PropEx &cb_ai_g  =add("Chartboost App ID"          , MemberDesc(MEMBER(ElmApp, cb_app_id_google       )).setFunc(ChartboostAppIDGoogle       , ChartboostAppIDGoogle       )).desc("Chartboost Application ID");
-      PropEx &cb_as_g  =add("Chartboost App Signature"   , MemberDesc(MEMBER(ElmApp, cb_app_signature_google)).setFunc(ChartboostAppSignatureGoogle, ChartboostAppSignatureGoogle)).desc("Chartboost Application Signature");
-      PropEx &google_lk=add("License Key"                , MemberDesc(DATA_STR                               ).setFunc(AndroidLicenseKey           , AndroidLicenseKey           )).desc("Google Play app license key.\nThis key is used for verification of purchases in Google Play Store, and for downloading Expansion Files hosted in Google Play.\nYou can obtain this key from \"Google Play Developer Console website \\ Your App \\ Services & APIs \\ YOUR LICENSE KEY FOR THIS APPLICATION\".\nUpon providing your license key, all purchases will be automatically verified and only those that pass the verification test will be returned.\nIf you don't specify your key then all purchases will be listed without any verification and you will not be able to download Expansion Files.");
-      PropEx &storage  =add("Preferred Storage"          , MemberDesc(DATA_INT                               ).setFunc(Storage                     , Storage                     )).setEnum().desc("Preferred installation location for the application\n\nInternal - The application must be installed on the internal device storage only. If this is set, the application will never be installed on the external storage. If the internal storage is full, then the system will not install the application.\n\nExternal - The application prefers to be installed on the external storage (SD card). There is no guarantee that the system will honor this request. The application might be installed on internal storage if the external media is unavailable or full, or if the application uses the forward-locking mechanism (not supported on external storage). Once installed, the user can move the application to either internal or external storage through the system settings.\n\nAuto - The application may be installed on the external storage, but the system will install the application on the internal storage by default. If the internal storage is full, then the system will install it on the external storage. Once installed, the user can move the application to either internal or external storage through the system settings."); storage.combobox.setColumns(NameDescListColumn, Elms(NameDescListColumn)).setData(StorageName, Elms(StorageName)).menu.list.setElmDesc(MEMBER(NameDesc, desc));
-      PropEx &expansion=add("Expansion Files"            , MemberDesc(DATA_BOOL                              ).setFunc(AndroidExpansion            , AndroidExpansion            )).desc("If automatically download Android Expansion Files from Google Play for this APK before starting the App.\nWhen this option is enabled then the engine will automatically download any Expansion Files hosted on Google Play that are needed for this Android APK.\nThe application will be started only after the Expansion Files have been downloaded, which means that once your game codes are executed, the Expansion Files will already be in place.\nYou can access the Expansion Files from code using 'AndroidExpansionFileName' function.\nMain Expansion File will be automatically loaded in 'EE_INIT' function.\nTypically when enabling this option you should disable \"Publish Project Data\" so the Project Data is not included in the APK, and manually export the Data using \"Build\\Export\\Project data optimized for Android\".\nDefault value for this option is false.");
-      PropEx &am_ai_i  =add("AdMob App ID"               , MemberDesc(MEMBER(ElmApp, am_app_id_ios          )).setFunc(AdMobAppIDiOS               , AdMobAppIDiOS               )).desc("AdMob Application ID");
-      PropEx &cb_ai_i  =add("Chartboost App ID"          , MemberDesc(MEMBER(ElmApp, cb_app_id_ios          )).setFunc(ChartboostAppIDiOS          , ChartboostAppIDiOS          )).desc("Chartboost Application ID");
-      PropEx &cb_as_i  =add("Chartboost App Signature"   , MemberDesc(MEMBER(ElmApp, cb_app_signature_ios   )).setFunc(ChartboostAppSignatureiOS   , ChartboostAppSignatureiOS   )).desc("Chartboost Application Signature");
-      PropEx &loc_usage=add("Location Usage Reason"      , MemberDesc(DATA_STR                               ).setFunc(LocationUsageReason         , LocationUsageReason         )).desc("Reason for accessing the user's location information.\nThis is needed for iOS (on other platforms this is ignored).\nThis will be displayed on the user screen when trying to access the Location.");
       PropEx &idw      =add("Include Directories"        , MemberDesc(DATA_STR                               ).setFunc(DirsWin                     , DirsWin                     )).desc("Type full paths to additional include directories.\nThis is used when compiling from the Windows platform.\nSeparate each with | for example:\nC:\\Lib1 | C:\\Lib2");
       PropEx &idn      =add("Include Directories"        , MemberDesc(DATA_STR                               ).setFunc(DirsNonWin                  , DirsNonWin                  )).desc("Type full paths to additional include directories.\nThis is used when compiling from platform other than Windows.\nSeparate each with | for example:\n/Lib2 | /Lib2");
       PropEx &first    =add("Package Name"               , MemberDesc(DATA_STR                               ).setFunc(Package                     , Package                     )).desc("Application package name.\nMust be in following format: \"com.company_name.app_name\"\nWhere 'company_name' is the name of developer/company,\nand 'app_name' is the name of the application.\n\nThe package name should be unique.\nThe name parts may contain uppercase or lowercase letters 'A' through 'Z', numbers, hyphens '-' and underscores '_'.\n\nOnce you publish your application, you cannot change the package name.\nThe package name defines your application's identity,\nso if you change it, then it is considered to be a different application\nand users of the previous version cannot update to the new version.");
                         add("Build Number"               , MemberDesc(DATA_INT                               ).setFunc(Build                       , Build                       )).desc("Application build number.\nUsed to identify the version of the application.\nThis must be specified in order for the application to update correctly through online stores.\nTypically you should increase this value by 1 when making each new release.").min(1).mouseEditSpeed(2);
-    Property &fb_app_id=add("Facebook App ID"            , MemberDesc(MEMBER(ElmApp, fb_app_id              )).setFunc(FacebookAppID               , FacebookAppID               )).desc("Facebook Application ID").mouseEditDel();
-                        add("Supported Orientations"     , MemberDesc(DATA_INT                               ).setFunc(Orientation                 , Orientation                 )).setEnum(OrientName, Elms(OrientName)).desc("Supported orientations for mobile platforms");
                         add("Default Gui Skin"           , MemberDesc(MEMBER(ElmApp, gui_skin               )).setFunc(GuiSkin                     , GuiSkin                     )).elmType(ELM_GUI_SKIN).desc("Set default Gui Skin used by this Application.\nGui Skin will be loaded during Application Engine initialization stage.");
       PropEx &embed    =add("Embed Engine Data"          , MemberDesc(DATA_INT                               ).setFunc(EmbedEngineData             , EmbedEngineData             )).setEnum().desc("If embed engine data into the application executable file, so it doesn't require separate \"Engine.pak\" file.\nThis option is recommended for applications that want to be distributed as standalone executables without any additional files.\nThis option is ignored for Mobile and Web builds.\nDefault value for this option is \"No\"."); embed.combobox.setColumns(NameDescListColumn, Elms(NameDescListColumn)).setData(EmbedEngine, Elms(EmbedEngine)).menu.list.setElmDesc(MEMBER(NameDesc, desc));
                         add("Publish Project Data"       , MemberDesc(DATA_BOOL                              ).setFunc(PublishProjData             , PublishProjData             )).desc("If include project data when publishing the application.\nDisable this if your application will not initially include the data, but will download it manually later.\nDefault value for this option is true.");
                         add("Publish Data as PAK's"      , MemberDesc(DATA_BOOL                              ).setFunc(PublishDataAsPak            , PublishDataAsPak            )).desc("If archive data files into PAK's.\nDisable this option if you plan to upload the application using Uploader tool, in which case it's better that the files are stored separately (instead of archived).\nThen you can make your Installer to download files from the server, and archive them as PAK's.\nDefault value for this option is true.");
                       //add("Publish PhysX DLL's"        , MemberDesc(DATA_BOOL                              ).setFunc(PublishPhysxDll             , PublishPhysxDll             )).desc("If include PhysX DLL files when publishing the application.\nDisable this if your application doesn't use physics, or it will download the files manually later.\nThis option is used only for EXE and DLL targets.\nDefault value for this option is true.");
                         add("Publish Steam DLL"          , MemberDesc(DATA_BOOL                              ).setFunc(PublishSteamDll             , PublishSteamDll             )).desc("If include Steam DLL file when publishing the application.\nEnable this only if your application uses Steam API.\nDefault value for this option is false.\nBased on this option, \"STEAM\" C++ macro will be set to 0 or 1.");
-                        add("Publish OpenVR DLL"         , MemberDesc(DATA_BOOL                              ).setFunc(PublishOpenVRDll            , PublishOpenVRDll            )).desc("If include OpenVR DLL file when publishing the application.\nEnable this only if your application uses OpenVR API.\nDefault value for this option is false.\nBased on this option, \"OPEN_VR\" C++ macro will be set to 0 or 1.");
                       //add("Windows Code Sign"          , MemberDesc(DATA_BOOL                              ).setFunc(WindowsCodeSign             , WindowsCodeSign             )).desc("If automatically sign the application when publishing for Windows EXE platform.\nWindows signtool.exe must be installed together with your Microsoft Windows Authenticode Digital Signature in the Certificate Store.\nSign tool will be used with the /a option making it to choose the best certificate out of all available.");
                 p_icon=&add("Icon"             );
       p_image_portrait=&add("Portrait Image"   );
@@ -762,45 +733,30 @@ if(appGuiSkin().valid())data+="   Gui.default_skin=EE_GUI_SKIN; // set default G
 
       Rect rect=super::create(S, Vec2(0.02f, -0.02f), 0.04f, h, 0.85f); super::changed(Changed); button[2].func(HideProjAct, SCAST(GuiObj, T)).show();
       Vec2 pos(0.02f, -0.02f);
-      flt  th=google_lk.textline.rect().h();
+      flt  th=ms_pub_id.textline.rect().h();
       T+=platforms.create(platforms_t, Elms(platforms_t)).valid(true).set(PWIN).rect(Rect_LU(pos, clientWidth()-0.04f, 0.05f)); pos.y-=0.05f;
       pos.y-=0.005f+h/2;
       ihw.pos(pos).parent(platforms.tab(PWIN));
       ihm.pos(pos).parent(platforms.tab(PMAC));
       ihl.pos(pos).parent(platforms.tab(PLIN));
-      iha.pos(pos).parent(platforms.tab(PAND));
-      ihi.pos(pos).parent(platforms.tab(PIOS));
       ihn.pos(pos).parent(platforms.tab(PNIN));
       pos.y-=h;
       ilw.pos(pos).parent(platforms.tab(PWIN));
       ilm.pos(pos).parent(platforms.tab(PMAC));
       ill.pos(pos).parent(platforms.tab(PLIN));
-      ila.pos(pos).parent(platforms.tab(PAND));
-      ili.pos(pos).parent(platforms.tab(PIOS));
       iln.pos(pos).parent(platforms.tab(PNIN));
       pos.y-=h;
       ms_pub_id.pos(pos).parent(platforms.tab(PWIN)); platforms.tab(PWIN)+=ms_pub_id.button.create(Rect_RU(ms_pub_id.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetMicrosoftPublisher); ms_pub_id.textline.rect(Rect(ms_pub_id.textline.rect().ld(), ms_pub_id.button.rect().lu()));
       nn_app_id.pos(pos).parent(platforms.tab(PNIN)); platforms.tab(PNIN)+=nn_app_id.button.create(Rect_RU(nn_app_id.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetNintendo); nn_app_id.textline.rect(Rect(nn_app_id.textline.rect().ld(), nn_app_id.button.rect().lu()));
-      am_ai_g.pos(pos).parent(platforms.tab(PAND)); platforms.tab(PAND)+=am_ai_g.button.create(Rect_RU(am_ai_g.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetAdMobApp); am_ai_g.textline.rect(Rect(am_ai_g.textline.rect().ld(), am_ai_g.button.rect().lu()));
-      am_ai_i.pos(pos).parent(platforms.tab(PIOS)); platforms.tab(PIOS)+=am_ai_i.button.create(Rect_RU(am_ai_i.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetAdMobApp); am_ai_i.textline.rect(Rect(am_ai_i.textline.rect().ld(), am_ai_i.button.rect().lu()));
       pos.y-=h;
       ms_pub_nm.pos(pos).parent(platforms.tab(PWIN)); platforms.tab(PWIN)+=ms_pub_nm.button.create(Rect_RU(ms_pub_nm.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetMicrosoftPublisher); ms_pub_nm.textline.rect(Rect(ms_pub_nm.textline.rect().ld(), ms_pub_nm.button.rect().lu()));
       nn_pub_nm.pos(pos).parent(platforms.tab(PNIN)); platforms.tab(PNIN)+=nn_pub_nm.button.create(Rect_RU(nn_pub_nm.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetNintendo); nn_pub_nm.textline.rect(Rect(nn_pub_nm.textline.rect().ld(), nn_pub_nm.button.rect().lu()));
-      cb_ai_g.pos(pos).parent(platforms.tab(PAND)); platforms.tab(PAND)+=cb_ai_g.button.create(Rect_RU(cb_ai_g.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetChartboostApp); cb_ai_g.textline.rect(Rect(cb_ai_g.textline.rect().ld(), cb_ai_g.button.rect().lu()));
-      cb_ai_i.pos(pos).parent(platforms.tab(PIOS)); platforms.tab(PIOS)+=cb_ai_i.button.create(Rect_RU(cb_ai_i.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetChartboostApp); cb_ai_i.textline.rect(Rect(cb_ai_i.textline.rect().ld(), cb_ai_i.button.rect().lu()));
       pos.y-=h;
       xb_prog.pos(pos).parent(platforms.tab(PWIN)); platforms.tab(PWIN)+=xb_prog.button.create(Rect_RU(xb_prog.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetXboxLive); xb_prog.textline.rect(Rect(xb_prog.textline.rect().ld(), xb_prog.button.rect().lu()));
-      cb_as_g.pos(pos).parent(platforms.tab(PAND)); platforms.tab(PAND)+=cb_as_g.button.create(Rect_RU(cb_as_g.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetChartboostApp); cb_as_g.textline.rect(Rect(cb_as_g.textline.rect().ld(), cb_as_g.button.rect().lu()));
-      cb_as_i.pos(pos).parent(platforms.tab(PIOS)); platforms.tab(PIOS)+=cb_as_i.button.create(Rect_RU(cb_as_i.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetChartboostApp); cb_as_i.textline.rect(Rect(cb_as_i.textline.rect().ld(), cb_as_i.button.rect().lu()));
       pos.y-=h;
       xb_tit_id.pos(pos).parent(platforms.tab(PWIN)); platforms.tab(PWIN)+=xb_tit_id.button.create(Rect_RU(xb_tit_id.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetXboxLive); xb_tit_id.textline.rect(Rect(xb_tit_id.textline.rect().ld(), xb_tit_id.button.rect().lu()));
-      google_lk.pos(pos).parent(platforms.tab(PAND)); platforms.tab(PAND)+=google_lk.button.create(Rect_RU(google_lk.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetAndroidLicenseKey); google_lk.textline.rect(Rect(google_lk.textline.rect().ld(), google_lk.button.rect().lu()));
-      loc_usage.pos(pos).parent(platforms.tab(PIOS));
       pos.y-=h;
       xb_scid.pos(pos).parent(platforms.tab(PWIN)); platforms.tab(PWIN)+=xb_scid.button.create(Rect_RU(xb_scid.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetXboxLive); xb_scid.textline.rect(Rect(xb_scid.textline.rect().ld(), xb_scid.button.rect().lu()));
-      storage.pos(pos).parent(platforms.tab(PAND));
-      pos.y-=h;
-      expansion.pos(pos).parent(platforms.tab(PAND));
       pos.y-=h*1.5f;
       T+=platforms2.create(platforms2_t, Elms(platforms2_t)).valid(true).set(0).rect(Rect_LU(pos, clientWidth()-0.04f, 0.05f)); pos.y-=0.05f;
       pos.y-=0.005f+h/2;
@@ -808,7 +764,6 @@ if(appGuiSkin().valid())data+="   Gui.default_skin=EE_GUI_SKIN; // set default G
       pos.y-=h;
 
       for(int i=props.validIndex(&first); i<props.elms(); i++, pos.y-=h)props[i].pos(pos);
-      T+=fb_app_id.button.create(Rect_RU(fb_app_id.textline.rect().ru()+Vec2(th, 0), th*2, th), "Get").func(GetFacebookAppID); fb_app_id.textline.rect(Rect(fb_app_id.textline.rect().ld(), fb_app_id.button.rect().lu()));
 
       p_image_portrait   ->move(Vec2(rect.w()  /3, h  ));
       p_image_landscape  ->move(Vec2(rect.w()*2/3, h*2));

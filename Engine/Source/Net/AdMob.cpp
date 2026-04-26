@@ -1,6 +1,7 @@
 /******************************************************************************/
 #include "stdafx.h"
-#if IOS
+#define SUPPORT_AD_MOB 0
+#if SUPPORT_AD_MOB
 
 #include "../../../ThirdPartyLibs/begin.h"
 
@@ -53,7 +54,7 @@ static Str8 InterstitialUnitID;
 namespace EE{
 /******************************************************************************/
 AdMobClass AdMob;
-#if IOS
+#if SUPPORT_AD_MOB
 static GADRequest           *Request;
 static EsenthelBannerView   *Banner;
 static GADInterstitial      *Interstitial;
@@ -68,7 +69,7 @@ static void ResizeAd()
 /******************************************************************************/
 AdMobClass::~AdMobClass()
 {
-#if IOS
+#if SUPPORT_AD_MOB
        fsDel(); // release 'Interstitial'
    bannerDel(); // release 'Banner'
    [InterstitialDelegate release]; InterstitialDelegate=null; // release after interstitial because it's using it
@@ -79,7 +80,7 @@ AdMobClass::AdMobClass()
   _banner_state=_fs_state=NONE;
   _banner_pos.set(0, 1);
   _banner_size.zero();
-#if IOS
+#if SUPPORT_AD_MOB
    Request=[GADRequest request];
    InterstitialDelegate=[[EsenthelInterstitial alloc] init];
 #endif
@@ -91,7 +92,7 @@ AdMobClass& AdMobClass::testMode(Bool on)
    if(jni && ActivityClass)
       if(JMethodID setAdRequest=jni.staticFunc(ActivityClass, "setAdRequest", "(Z)V"))
          jni->CallStaticVoidMethod(ActivityClass, setAdRequest, jboolean(on));
-#elif IOS
+#elif SUPPORT_AD_MOB
    Request.testDevices=nil;
    if(on)
       if(NSClassFromString(@"ASIdentifierManager"))
@@ -114,7 +115,7 @@ AdMobClass& AdMobClass::bannerDel()
    if(jni && ActivityClass && Activity)
       if(JMethodID adDel=jni.func(ActivityClass, "adDel", "(Z)V"))
          jni->CallVoidMethod(Activity, adDel, jboolean(true));
-#elif IOS
+#elif SUPPORT_AD_MOB
    if(Banner)
    {
       Banner.delegate=nil;
@@ -133,7 +134,7 @@ AdMobClass& AdMobClass::fsDel()
    if(jni && ActivityClass && Activity)
       if(JMethodID adDel=jni.func(ActivityClass, "adDel", "(Z)V"))
          jni->CallVoidMethod(Activity, adDel, jboolean(false));
-#elif IOS
+#elif SUPPORT_AD_MOB
    if(Interstitial)
    {
       Interstitial.delegate=nil;
@@ -158,7 +159,7 @@ AdMobClass& AdMobClass::bannerCreate(C Str8 &unit_id, BANNER_TYPE type)
          if(JMethodID adCreate=jni.func(ActivityClass, "adCreate", "(Ljava/lang/String;I)V"))
          if(JString j_unit_id=unit_id)
             jni->CallVoidMethod(Activity, adCreate, j_unit_id(), jint(type));
-   #elif IOS
+   #elif SUPPORT_AD_MOB
       const GADAdSize *size=null;
       switch(type)
       {
@@ -197,7 +198,7 @@ AdMobClass& AdMobClass::fsCreate(C Str8 &unit_id)
          if(JMethodID adCreate=jni.func(ActivityClass, "adCreate", "(Ljava/lang/String;I)V"))
          if(JString j_unit_id=unit_id)
             jni->CallVoidMethod(Activity, adCreate, j_unit_id(), jint(INTERSTITIAL));
-   #elif IOS
+   #elif SUPPORT_AD_MOB
       fsDel();
       if(Request)
          if(NSStringAuto str=unit_id)
@@ -220,7 +221,7 @@ AdMobClass& AdMobClass::bannerVisible(Bool visible)
    if(jni && ActivityClass && Activity)
       if(JMethodID adVisible=jni.func(ActivityClass, "adVisible", "(ZZ)V"))
          jni->CallVoidMethod(Activity, adVisible, jboolean(true), jboolean(visible));
-#elif IOS
+#elif SUPPORT_AD_MOB
    BannerVisible=visible;
    if(ViewController && Banner)
    {
@@ -242,7 +243,7 @@ AdMobClass& AdMobClass::fsVisible(Bool visible)
    if(jni && ActivityClass && Activity)
       if(JMethodID adVisible=jni.func(ActivityClass, "adVisible", "(ZZ)V"))
          jni->CallVoidMethod(Activity, adVisible, jboolean(false), jboolean(visible));
-#elif IOS
+#elif SUPPORT_AD_MOB
    if(visible)
    {
       if(Interstitial && InterstitialLoaded && ViewController)
@@ -274,7 +275,7 @@ AdMobClass& AdMobClass::bannerPos(Int x, Int y)
       if(jni && ActivityClass && Activity)
          if(JMethodID adPos=jni.func(ActivityClass, "adPos", "(II)V"))
             jni->CallVoidMethod(Activity, adPos, jint(x), jint(y));
-   #elif IOS
+   #elif SUPPORT_AD_MOB
       if(Banner)
       {
          CGRect rect=Banner.frame;

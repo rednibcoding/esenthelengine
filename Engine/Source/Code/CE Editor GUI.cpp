@@ -616,7 +616,6 @@ void CodeEditor::Options::create(CodeEditor &ce)
       tab+=t_apple_team_id.create(apple_team_id.rect().lu(), "Apple Team ID", &ts); y-=s;
       tab+=b_apple_team_id.create(Rect_LU(apple_team_id.rect().ru(), h*1.5f, h), "Get").func(AppleTeamIDGet, T);
 
-      tab+=facebook_android_key_hash.create(Rect_C(clientWidth()*0.5f, y, 0.80f, 0.06f), "Get Android Key Hash for Facebook").func(FacebookAndroidKeyHash, T); y-=s;
       y-=s;
       tab+=authenticode.create(Rect_C(clientWidth()/2, y, 0.60f, 0.06f), "Use Microsoft Authenticode").desc("If automatically sign the application when publishing for Windows EXE platform.\nWindows signtool.exe must be installed together with your Microsoft Windows Authenticode Digital Signature in the Certificate Store.\nSign tool will be used with the /a option making it to choose the best certificate out of all available."); authenticode.mode=BUTTON_TOGGLE; authenticode.set(false); y-=s;
    }

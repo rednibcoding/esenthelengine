@@ -1,10 +1,11 @@
 /******************************************************************************/
 #include "stdafx.h"
 #include "../Platforms/iOS/iOS.h"
+#define SUPPORT_FACEBOOK 0
 namespace EE{
 /******************************************************************************/
 Facebook FB;
-#if IOS
+#if SUPPORT_FACEBOOK
 enum GET_FLAG
 {
    GET_ME     =1<<0,
@@ -79,7 +80,7 @@ Bool Facebook::loggedIn()C
    if(jni && ActivityClass)
    if(JMethodID facebookLoggedIn=jni.staticFunc(ActivityClass, "facebookLoggedIn", "()Z"))
       return jni->CallStaticBooleanMethod(ActivityClass, facebookLoggedIn);
-#elif IOS
+#elif SUPPORT_FACEBOOK
    return [FBSDKAccessToken currentAccessToken]!=null;
 #endif
    return false;
@@ -91,7 +92,7 @@ Facebook& Facebook::logIn()
    if(jni && ActivityClass && Activity)
    if(JMethodID facebookLogIn=jni.func(ActivityClass, "facebookLogIn", "()V"))
       jni->CallVoidMethod(Activity, facebookLogIn);
-#elif IOS
+#elif SUPPORT_FACEBOOK
    if(FBSDKLoginManager *login=[[FBSDKLoginManager alloc] init])
    {
       [login logInWithReadPermissions: @[@"public_profile", @"email", @"user_friends"] fromViewController:ViewController handler:^(FBSDKLoginManagerLoginResult *result, NSError *error)
@@ -121,7 +122,7 @@ Facebook& Facebook::logOut()
    if(jni && ActivityClass)
    if(JMethodID facebookLogOut=jni.staticFunc(ActivityClass, "facebookLogOut", "()V"))
       jni->CallStaticVoidMethod(ActivityClass, facebookLogOut);
-#elif IOS
+#elif SUPPORT_FACEBOOK
    #if 0
       if(FBSDKLoginManager *login=[[FBSDKLoginManager alloc] init])
       {
@@ -144,7 +145,7 @@ Facebook& Facebook::getMe()
    if(jni && ActivityClass && Activity)
    if(JMethodID facebookGetMe=jni.func(ActivityClass, "facebookGetMe", "()V"))
       jni->CallVoidMethod(Activity, facebookGetMe);
-#elif IOS
+#elif SUPPORT_FACEBOOK
    if(loggedIn())GetMe();else{FlagEnable(Get, GET_ME); logIn();}
 #endif
    return T;
@@ -156,7 +157,7 @@ Facebook& Facebook::getFriends()
    if(jni && ActivityClass && Activity)
    if(JMethodID facebookGetFriends=jni.func(ActivityClass, "facebookGetFriends", "()V"))
       jni->CallVoidMethod(Activity, facebookGetFriends);
-#elif IOS
+#elif SUPPORT_FACEBOOK
    if(loggedIn())GetFriends();else{FlagEnable(Get, GET_FRIENDS); logIn();}
 #endif
    return T;
@@ -173,7 +174,7 @@ void Facebook::openPage(C Str &page_name, C Str &page_id)
 {
 #if ANDROID
    if(!page_id.is() || !Explore(S+"fb://page/"+page_id))
-#elif IOS
+#elif SUPPORT_FACEBOOK
    if(!page_id.is() || !Explore(S+"fb://profile/"+page_id))
 #endif
       if(page_name.is())Explore(S+"https://www.facebook.com/"+page_name);else
@@ -188,7 +189,7 @@ void Facebook::post(C Str &url, C Str &quote)
    if(JString   j_url  =JString(jni, url  ))
    if(JString   j_quote=JString(jni, quote))
       jni->CallVoidMethod(Activity, facebookPost, j_url(), j_quote());
-#elif IOS
+#elif SUPPORT_FACEBOOK
    if(FBSDKShareLinkContent *content=[[FBSDKShareLinkContent alloc] init])
    {
       NSURLAuto ns_url=url; content.contentURL=ns_url; // !! keep 'ns_url' as temp to be deleted later, in case 'content.contentURL' is a weak reference reusing its or NSString's memory

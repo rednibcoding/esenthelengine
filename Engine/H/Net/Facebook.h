@@ -23,7 +23,7 @@
       4. Once you will be releasing your application to public, you also need to make your "Facebook App" available to the public on the https://developers.facebook.com/apps/ website under the "Status & Review" - field "Do you want to make this app and all its live features available to the general public?"
 
 /******************************************************************************/
-#define FACEBOOK (ANDROID || IOS) // if Facebook is supported on this platform
+#define FACEBOOK 0 // Facebook support has been removed
 /******************************************************************************/
 struct Facebook
 {

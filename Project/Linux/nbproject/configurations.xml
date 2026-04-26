@@ -41,22 +41,6 @@
           <commandlineTool>clang++</commandlineTool>
           <incDir>
             <pElem>..</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Include</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Include/cloth</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Include/common</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Include/extensions</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Include/geometry</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Include/vehicle</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Source/Common/src</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Source/GeomUtils/src</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Source/PhysXExtensions/src/serialization/Xml</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Source/PhysXMetaData/core/include</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Source/PhysXMetaData/extensions/include</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Source/PhysXVehicle/src</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Source/PhysXVehicle/src/PhysXMetaData/include</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PxShared/include</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PxShared/src/foundation/include</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PxShared/src/pvd/include</pElem>
             <pElem>../../ThirdPartyLibs/Theora/include</pElem>
             <pElem>../../ThirdPartyLibs/FreeType/include</pElem>
             <pElem>../../ThirdPartyLibs/Vorbis/include</pElem>
@@ -73,11 +57,6 @@
         <linkerTool>
           <output>../Project</output>
           <linkerAddLib>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Bin/linux64</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Lib/linux64</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PxShared/bin/linux64</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PxShared/lib/linux64</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/Dummy/Linux</pElem>
           </linkerAddLib>
           <linkerDynSerch>
             <pElem>Bin</pElem>
@@ -232,14 +211,6 @@
             <linkerLibFileItem>../../ThirdPartyLibs/FDK-AAC/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
             <linkerLibFileItem>../../ThirdPartyLibs/mbedTLS/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
             <linkerLibFileItem>../../ThirdPartyLibs/Xml2/Linux/libxml2.a</linkerLibFileItem>
-            <linkerLibFileItem>../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysX_static_64.a</linkerLibFileItem>
-            <linkerLibFileItem>../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCharacterKinematic_static_64.a</linkerLibFileItem>
-            <linkerLibFileItem>../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCooking_static_64.a</linkerLibFileItem>
-            <linkerLibFileItem>../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXExtensions_static_64.a</linkerLibFileItem>
-            <linkerLibFileItem>../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXFoundation_static_64.a</linkerLibFileItem>
-            <linkerLibFileItem>../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXPvdSDK_static_64.a</linkerLibFileItem>
-            <linkerLibFileItem>../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXVehicle_static_64.a</linkerLibFileItem>
-            <linkerLibFileItem>../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCommon_static_64.a</linkerLibFileItem>
             <linkerLibLibItem>X11</linkerLibLibItem>
             <linkerLibLibItem>Xmu</linkerLibLibItem>
             <linkerLibLibItem>Xxf86vm</linkerLibLibItem>
@@ -263,7 +234,7 @@
       </item>
       <item path="../stdafx.h" ex="false" tool="3" flavor2="0">
         <customTool>
-          <customToolCommandline>clang++ -x c++-header ../stdafx.h -o ../stdafx.h.pch $(CXXFLAGS) -g -DDEBUG=1 -I.. -I../H/_ -I../../ThirdPartyLibs -I../../ThirdPartyLibs/Bullet/lib/src -I../../ThirdPartyLibs/FBX -I../../ThirdPartyLibs/FreeType/lib/include -I../../ThirdPartyLibs/Ogg/include -I../../ThirdPartyLibs/Opus/lib/include -I../../ThirdPartyLibs/Opus/file/include -I../../ThirdPartyLibs/Theora/include -I../../ThirdPartyLibs/Vorbis/include -I../../ThirdPartyLibs/VP/libvpx/third_party/libwebm -I../../ThirdPartyLibs/FDK-AAC/lib/libAACdec/include -I../../ThirdPartyLibs/FDK-AAC/lib/libAACenc/include -I../../ThirdPartyLibs/FDK-AAC/lib/libFDK/include -I../../ThirdPartyLibs/FDK-AAC/lib/libMpegTPDec/include -I../../ThirdPartyLibs/FDK-AAC/lib/libMpegTPEnc/include -I../../ThirdPartyLibs/FDK-AAC/lib/libPCMutils/include -I../../ThirdPartyLibs/FDK-AAC/lib/libSBRdec/include -I../../ThirdPartyLibs/FDK-AAC/lib/libSBRenc/include -I../../ThirdPartyLibs/FDK-AAC/lib/libSYS/include -I../../ThirdPartyLibs/PhysX/physx/include -I../../ThirdPartyLibs/PhysX/pxshared/include -I../../ThirdPartyLibs/PhysX/physx/source/common/src -I../../ThirdPartyLibs/PhysX/physx/source/foundation/include -I../../ThirdPartyLibs/PhysX/physx/source/geomutils/src -fms-extensions -std=c++17</customToolCommandline>
+          <customToolCommandline>clang++ -x c++-header ../stdafx.h -o ../stdafx.h.pch $(CXXFLAGS) -g -DDEBUG=1 -I.. -I../H/_ -I../../ThirdPartyLibs -I../../ThirdPartyLibs/Bullet/lib/src -I../../ThirdPartyLibs/FBX -I../../ThirdPartyLibs/FreeType/lib/include -I../../ThirdPartyLibs/Ogg/include -I../../ThirdPartyLibs/Opus/lib/include -I../../ThirdPartyLibs/Opus/file/include -I../../ThirdPartyLibs/Theora/include -I../../ThirdPartyLibs/Vorbis/include -I../../ThirdPartyLibs/VP/libvpx/third_party/libwebm -I../../ThirdPartyLibs/FDK-AAC/lib/libAACdec/include -I../../ThirdPartyLibs/FDK-AAC/lib/libAACenc/include -I../../ThirdPartyLibs/FDK-AAC/lib/libFDK/include -I../../ThirdPartyLibs/FDK-AAC/lib/libMpegTPDec/include -I../../ThirdPartyLibs/FDK-AAC/lib/libMpegTPEnc/include -I../../ThirdPartyLibs/FDK-AAC/lib/libPCMutils/include -I../../ThirdPartyLibs/FDK-AAC/lib/libSBRdec/include -I../../ThirdPartyLibs/FDK-AAC/lib/libSBRenc/include -I../../ThirdPartyLibs/FDK-AAC/lib/libSYS/include -fms-extensions -std=c++17</customToolCommandline>
           <customToolOutputs>../stdafx.h.pch</customToolOutputs>
         </customTool>
       </item>
@@ -285,22 +256,6 @@
           <commandlineTool>clang++</commandlineTool>
           <incDir>
             <pElem>..</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Include</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Include/cloth</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Include/common</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Include/extensions</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Include/geometry</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Include/vehicle</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Source/Common/src</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Source/GeomUtils/src</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Source/PhysXExtensions/src/serialization/Xml</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Source/PhysXMetaData/core/include</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Source/PhysXMetaData/extensions/include</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Source/PhysXVehicle/src</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Source/PhysXVehicle/src/PhysXMetaData/include</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PxShared/include</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PxShared/src/foundation/include</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PxShared/src/pvd/include</pElem>
             <pElem>../../ThirdPartyLibs/Theora/include</pElem>
             <pElem>../../ThirdPartyLibs/FreeType/include</pElem>
             <pElem>../../ThirdPartyLibs/Vorbis/include</pElem>
@@ -323,11 +278,6 @@
         <linkerTool>
           <output>../Project</output>
           <linkerAddLib>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Bin/linux64</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PhysX/Lib/linux64</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PxShared/bin/linux64</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/PxShared/lib/linux64</pElem>
-            <pElem>../../ThirdPartyLibs/PhysX/Dummy/Linux</pElem>
           </linkerAddLib>
           <linkerDynSerch>
             <pElem>Bin</pElem>
@@ -483,14 +433,6 @@
             <linkerLibFileItem>../../ThirdPartyLibs/FDK-AAC/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
             <linkerLibFileItem>../../ThirdPartyLibs/mbedTLS/Linux/dist/Release/GNU-Linux/liblinux.a</linkerLibFileItem>
             <linkerLibFileItem>../../ThirdPartyLibs/Xml2/Linux/libxml2.a</linkerLibFileItem>
-            <linkerLibFileItem>../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysX_static_64.a</linkerLibFileItem>
-            <linkerLibFileItem>../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCharacterKinematic_static_64.a</linkerLibFileItem>
-            <linkerLibFileItem>../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCooking_static_64.a</linkerLibFileItem>
-            <linkerLibFileItem>../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXExtensions_static_64.a</linkerLibFileItem>
-            <linkerLibFileItem>../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXFoundation_static_64.a</linkerLibFileItem>
-            <linkerLibFileItem>../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXPvdSDK_static_64.a</linkerLibFileItem>
-            <linkerLibFileItem>../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXVehicle_static_64.a</linkerLibFileItem>
-            <linkerLibFileItem>../../ThirdPartyLibs/PhysX/physx/bin/linux.clang/release/libPhysXCommon_static_64.a</linkerLibFileItem>
             <linkerLibLibItem>X11</linkerLibLibItem>
             <linkerLibLibItem>Xmu</linkerLibLibItem>
             <linkerLibLibItem>Xxf86vm</linkerLibLibItem>
@@ -514,7 +456,7 @@
       </item>
       <item path="../stdafx.h" ex="false" tool="3" flavor2="0">
         <customTool>
-          <customToolCommandline>clang++ -x c++-header ../stdafx.h -o ../stdafx.h.pch $(CXXFLAGS) -O3 -DDEBUG=0 -I.. -I../H/_ -I../../ThirdPartyLibs -I../../ThirdPartyLibs/Bullet/lib/src -I../../ThirdPartyLibs/FBX -I../../ThirdPartyLibs/FreeType/lib/include -I../../ThirdPartyLibs/Ogg/include -I../../ThirdPartyLibs/Opus/lib/include -I../../ThirdPartyLibs/Opus/file/include -I../../ThirdPartyLibs/Theora/include -I../../ThirdPartyLibs/Vorbis/include -I../../ThirdPartyLibs/VP/libvpx/third_party/libwebm -I../../ThirdPartyLibs/FDK-AAC/lib/libAACdec/include -I../../ThirdPartyLibs/FDK-AAC/lib/libAACenc/include -I../../ThirdPartyLibs/FDK-AAC/lib/libFDK/include -I../../ThirdPartyLibs/FDK-AAC/lib/libMpegTPDec/include -I../../ThirdPartyLibs/FDK-AAC/lib/libMpegTPEnc/include -I../../ThirdPartyLibs/FDK-AAC/lib/libPCMutils/include -I../../ThirdPartyLibs/FDK-AAC/lib/libSBRdec/include -I../../ThirdPartyLibs/FDK-AAC/lib/libSBRenc/include -I../../ThirdPartyLibs/FDK-AAC/lib/libSYS/include -I../../ThirdPartyLibs/PhysX/physx/include -I../../ThirdPartyLibs/PhysX/pxshared/include -I../../ThirdPartyLibs/PhysX/physx/source/common/src -I../../ThirdPartyLibs/PhysX/physx/source/foundation/include -I../../ThirdPartyLibs/PhysX/physx/source/geomutils/src -fms-extensions -std=c++17</customToolCommandline>
+          <customToolCommandline>clang++ -x c++-header ../stdafx.h -o ../stdafx.h.pch $(CXXFLAGS) -O3 -DDEBUG=0 -I.. -I../H/_ -I../../ThirdPartyLibs -I../../ThirdPartyLibs/Bullet/lib/src -I../../ThirdPartyLibs/FBX -I../../ThirdPartyLibs/FreeType/lib/include -I../../ThirdPartyLibs/Ogg/include -I../../ThirdPartyLibs/Opus/lib/include -I../../ThirdPartyLibs/Opus/file/include -I../../ThirdPartyLibs/Theora/include -I../../ThirdPartyLibs/Vorbis/include -I../../ThirdPartyLibs/VP/libvpx/third_party/libwebm -I../../ThirdPartyLibs/FDK-AAC/lib/libAACdec/include -I../../ThirdPartyLibs/FDK-AAC/lib/libAACenc/include -I../../ThirdPartyLibs/FDK-AAC/lib/libFDK/include -I../../ThirdPartyLibs/FDK-AAC/lib/libMpegTPDec/include -I../../ThirdPartyLibs/FDK-AAC/lib/libMpegTPEnc/include -I../../ThirdPartyLibs/FDK-AAC/lib/libPCMutils/include -I../../ThirdPartyLibs/FDK-AAC/lib/libSBRdec/include -I../../ThirdPartyLibs/FDK-AAC/lib/libSBRenc/include -I../../ThirdPartyLibs/FDK-AAC/lib/libSYS/include -fms-extensions -std=c++17</customToolCommandline>
           <customToolOutputs>../stdafx.h.pch</customToolOutputs>
         </customTool>
       </item>

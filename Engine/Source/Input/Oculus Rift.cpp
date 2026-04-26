@@ -1,6 +1,6 @@
 ﻿/******************************************************************************/
 #include "stdafx.h"
-#define SUPPORT_OCULUS (WINDOWS_OLD && DX11)
+#define SUPPORT_OCULUS 0
 
 #if SUPPORT_OCULUS
    #include "../../../ThirdPartyLibs/begin.h"

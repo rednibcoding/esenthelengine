@@ -1,7 +1,7 @@
 /******************************************************************************/
 #include "stdafx.h"
-
-#if IOS
+#define SUPPORT_CHARTBOOST 0
+#if SUPPORT_CHARTBOOST
 #include "../Platforms/iOS/iOS.h"
 
 static void ChartboostCall(ChartboostClass::RESULT result)
@@ -39,7 +39,7 @@ namespace EE{
 /******************************************************************************/
 ChartboostClass Chartboost;
 /******************************************************************************/
-#if IOS
+#if SUPPORT_CHARTBOOST
 static EsenthelChartboostDelegate *EsenthelChartboostDelegatePtr;
 static void InitChartboost()
 {
@@ -55,14 +55,14 @@ static void InitChartboost()
 #endif
 ChartboostClass::~ChartboostClass()
 {
-#if IOS
+#if SUPPORT_CHARTBOOST
    [::Chartboost setDelegate:nil];
    [EsenthelChartboostDelegatePtr release]; EsenthelChartboostDelegatePtr=null; // have to release only after we will not use Chartboost anymore, and we've cleared the delegate, if we would release inside 'InitChartboost' then it would get destroyed immediately as chartboost does not increase the ref cound for it
 #endif
 }
 ChartboostClass::ChartboostClass()
 {
-#if IOS
+#if SUPPORT_CHARTBOOST
    InitChartboostPtr=InitChartboost;
 #endif
 }
@@ -74,7 +74,7 @@ Bool ChartboostClass::visible()C // this does not work on Android, most likely i
    if(jni && ActivityClass)
    if(JMethodID chartboostVisible=jni.staticFunc(ActivityClass, "chartboostVisible", "()Z"))
       return jni->CallStaticBooleanMethod(ActivityClass, chartboostVisible);
-#elif IOS
+#elif SUPPORT_CHARTBOOST
    return [::Chartboost isAnyViewVisible];
 #endif
    return false;
@@ -87,7 +87,7 @@ ChartboostClass& ChartboostClass::interstitialLoad()
    if(jni && ActivityClass)
       if(JMethodID chartboostInterstitialLoad=jni.staticFunc(ActivityClass, "chartboostInterstitialLoad", "()V"))
          jni->CallStaticVoidMethod(ActivityClass, chartboostInterstitialLoad);
-#elif IOS
+#elif SUPPORT_CHARTBOOST
    [::Chartboost cacheInterstitial:CBLocationDefault];
 #endif
    return T;
@@ -99,7 +99,7 @@ ChartboostClass& ChartboostClass::interstitialShow()
    if(jni && ActivityClass)
       if(JMethodID chartboostInterstitialShow=jni.staticFunc(ActivityClass, "chartboostInterstitialShow", "()V"))
          jni->CallStaticVoidMethod(ActivityClass, chartboostInterstitialShow);
-#elif IOS
+#elif SUPPORT_CHARTBOOST
    [::Chartboost showInterstitial:CBLocationDefault];
 #endif
    return T;
@@ -111,7 +111,7 @@ Bool ChartboostClass::interstitialAvailable()C
    if(jni && ActivityClass)
       if(JMethodID chartboostInterstitialAvailable=jni.staticFunc(ActivityClass, "chartboostInterstitialAvailable", "()Z"))
          return jni->CallStaticBooleanMethod(ActivityClass, chartboostInterstitialAvailable);
-#elif IOS
+#elif SUPPORT_CHARTBOOST
    return [::Chartboost hasInterstitial:CBLocationDefault];
 #endif
    return false;
@@ -124,7 +124,7 @@ ChartboostClass& ChartboostClass::rewardedVideoLoad()
    if(jni && ActivityClass)
       if(JMethodID chartboostRewardedVideoLoad=jni.staticFunc(ActivityClass, "chartboostRewardedVideoLoad", "()V"))
          jni->CallStaticVoidMethod(ActivityClass, chartboostRewardedVideoLoad);
-#elif IOS
+#elif SUPPORT_CHARTBOOST
    [::Chartboost cacheRewardedVideo:CBLocationDefault];
 #endif
    return T;
@@ -136,7 +136,7 @@ ChartboostClass& ChartboostClass::rewardedVideoShow()
    if(jni && ActivityClass)
       if(JMethodID chartboostRewardedVideoShow=jni.staticFunc(ActivityClass, "chartboostRewardedVideoShow", "()V"))
          jni->CallStaticVoidMethod(ActivityClass, chartboostRewardedVideoShow);
-#elif IOS
+#elif SUPPORT_CHARTBOOST
    [::Chartboost showRewardedVideo:CBLocationDefault];
 #endif
    return T;
@@ -148,7 +148,7 @@ Bool ChartboostClass::rewardedVideoAvailable()C
    if(jni && ActivityClass)
       if(JMethodID chartboostRewardedVideoAvailable=jni.staticFunc(ActivityClass, "chartboostRewardedVideoAvailable", "()Z"))
          return jni->CallStaticBooleanMethod(ActivityClass, chartboostRewardedVideoAvailable);
-#elif IOS
+#elif SUPPORT_CHARTBOOST
    return [::Chartboost hasRewardedVideo:CBLocationDefault];
 #endif
    return false;

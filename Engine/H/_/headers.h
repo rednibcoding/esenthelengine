@@ -316,11 +316,6 @@
          #include <CoreMotion/CoreMotion.h>
          #include <CoreLocation/CoreLocation.h>
          #include <AVFoundation/AVFoundation.h>
-         #include <AdSupport/ASIdentifierManager.h>
-         #include <FBSDKCoreKit/FBSDKCoreKit.h>
-         #include <FBSDKLoginKit/FBSDKLoginKit.h>
-         #include <FBSDKShareKit/FBSDKShareKit.h>
-         #include "../../../ThirdPartyLibs/Chartboost/Headers/Chartboost.h"
          #if GL
             #include <OpenGLES/EAGL.h>
             #include <OpenGLES/EAGLDrawable.h>

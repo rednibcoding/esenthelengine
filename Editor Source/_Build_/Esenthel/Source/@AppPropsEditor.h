@@ -142,9 +142,9 @@ class AppPropsEditor : PropWin
       PWIN,
       PMAC,
       PLIN,
+      PNIN,
       PAND,
       PIOS,
-      PNIN,
    };
    static cchar8 *platforms_t[]
 ;

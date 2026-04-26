@@ -43,9 +43,6 @@ static void UpdateMagnetometer(CLHeading *heading)
    [window setRootViewController:controller]; // [window addSubview:controller.view];
    [window makeKeyAndVisible];
 
-   // Chartboost
-   if(InitChartboostPtr)InitChartboostPtr(); // call this from a pointer to function (and not directly to the advertisement codes) to avoid force linking to advertisement (which then links to chartboost lib, which uses 'advertisingIdentifier' which is prohibited when ads are not displayed in iOS, also linking to chartboost increases the app binary size)
-
    // Sensors
    REPA(LocationManager)if(!LocationManager[i])
    {
@@ -56,10 +53,6 @@ static void UpdateMagnetometer(CLHeading *heading)
       LocationManager[i]. headingFilter =kCLHeadingFilterNone;
                                UpdateLocation    (LocationManager[i   ].location, i!=0);
    }  if(LocationManager[true])UpdateMagnetometer(LocationManager[true].heading);
-
-   // Facebook
-   [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
-
    return true;
 }
 -(void)applicationWillResignActive:(UIApplication*)application
@@ -71,8 +64,6 @@ static void UpdateMagnetometer(CLHeading *heading)
 {
    if(App._closed)return; // do nothing if app called 'Exit'
    App.setActive(true);
-   // Facebook
-   [FBSDKAppEvents activateApp];
 }
 -(void)applicationDidEnterBackground:(UIApplication*)application
 {
@@ -106,17 +97,6 @@ static void UpdateMagnetometer(CLHeading *heading)
 {
    UpdateMagnetometer(newHeading);
 }
-/******************************************************************************
-// FACEBOOK
-/******************************************************************************/
--(BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id>*)options
-{
-   BOOL   handled=[[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
-   return handled;
-}
--(void)sharer         :(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary*)results {if(auto callback=FB.callback)callback(Facebook::POST_SUCCESS);} // copy first to temp var to avoid multi-threading issues
--(void)sharer         :(id<FBSDKSharing>)sharer didFailWithError      :(NSError     *)error   {if(auto callback=FB.callback)callback(Facebook::POST_ERROR  );} // copy first to temp var to avoid multi-threading issues
--(void)sharerDidCancel:(id<FBSDKSharing>)sharer;                                              {if(auto callback=FB.callback)callback(Facebook::POST_CANCEL );} // copy first to temp var to avoid multi-threading issues
 /******************************************************************************/
 @end
 /******************************************************************************/
